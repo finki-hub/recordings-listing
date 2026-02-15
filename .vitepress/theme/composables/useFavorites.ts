@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 
-const STORAGE_KEY = 'finki-favorites'
+const STORAGE_KEY = 'favorites'
 
 function loadFavorites(): Set<string> {
   if (typeof window === 'undefined') return new Set()
