@@ -1,8 +1,8 @@
-# FINKI Recordings Listing
+# FINKI Hub / Recordings Listing
 
-A VitePress-powered website that aggregates links to lecture and exercise recordings for courses at the Faculty of Computer Science and Engineering (FINKI). Each course has its own Markdown page and is available via the sidebar for quick navigation.
+A VitePress-powered website that aggregates links to lecture and exercise recordings for courses at FCSE. Each course has its own Markdown page and is available via the sidebar for quick navigation.
 
-> Note: This is an unofficial, community-driven project. All rights to the recordings belong to their respective owners. Links are shared for educational purposes only.
+> Note: All rights to the recordings belong to their respective owners. Links are shared for educational purposes only.
 
 ## Features
 
@@ -19,8 +19,8 @@ A VitePress-powered website that aggregates links to lecture and exercise record
 Clone the repository and install dependencies:
 
 ```sh
-git clone https://github.com/finki-hub/finki-recordings-listing.git
-cd finki-recordings-listing
+git clone https://github.com/finki-hub/recordings-listing.git
+cd recordings-listing
 npm install
 ```
 
@@ -131,14 +131,8 @@ The site will be available at <http://localhost:8080>
 
 Notes:
 
-- `compose.yaml` builds an image and tags it as `ghcr.io/finki-hub/finki-recordings-listing:local`.
-- `compose.prod.yaml` pulls `ghcr.io/finki-hub/finki-recordings-listing:latest` (set in CI). If you tag images differently (e.g., by commit SHA), adjust the image in `compose.prod.yaml` accordingly.
-
-## Contributing
-
-- Open an issue for suggestions or problems.
-- Send a pull request to add or improve course pages.
-- Keep links organized and labeled (lecture, lab, consultations) and group by week/topic when possible.
+- `compose.yaml` builds an image and tags it as `ghcr.io/finki-hub/recordings-listing:local`.
+- `compose.prod.yaml` pulls `ghcr.io/finki-hub/recordings-listing:latest` (set in CI). If you tag images differently (e.g., by commit SHA), adjust the image in `compose.prod.yaml` accordingly.
 
 ## License
 

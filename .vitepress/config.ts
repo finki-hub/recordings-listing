@@ -62,7 +62,7 @@ const vitePressOptions: UserConfig = {
     socialLinks: [
       {
         icon: "github",
-        link: "https://github.com/finki-hub/finki-recordings-listing",
+        link: "https://github.com/finki-hub/recordings-listing",
       },
     ],
     sidebarMenuLabel: "Мени",

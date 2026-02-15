@@ -12,6 +12,6 @@ jobs:
   deploy:
     uses: finki-hub/.github/.github/workflows/cloudflare-pages.yaml@main
     with:
-      project-name: finki-recordings-listing
+      project-name: finki-hub-recordings-listing
       directory: .vitepress/dist
     secrets: inherit

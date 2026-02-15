@@ -1,11 +1,11 @@
-name: finki-recordings-listing
+name: finki-hub-recordings-listing-dev
 
 services:
   site:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/finki-hub/finki-recordings-listing:local
+    image: ghcr.io/finki-hub/recordings-listing:local
     ports:
       - "8080:80"
     restart: unless-stopped
