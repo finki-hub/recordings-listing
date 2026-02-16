@@ -106,34 +106,6 @@ export default defineConfig({
 });
 ```
 
-## Deployment
-
-- Any static host works (GitHub Pages, Netlify, Vercel, etc.).
-- Build with `npm run docs:build` and deploy the `.vitepress/dist` directory.
-- For GitHub Pages under a repository subpath, set the `base` option in `.vitepress/config.ts` to `'/<repo-name>/'`.
-
-### Docker / Compose
-
-Local build and run (builds from Dockerfile):
-
-```cmd
-docker compose -f compose.yaml up --build
-```
-
-Production run (pulls from GHCR):
-
-```cmd
-docker login ghcr.io
-docker compose -f compose.prod.yaml up -d
-```
-
-The site will be available at <http://localhost:8080>
-
-Notes:
-
-- `compose.yaml` builds an image and tags it as `ghcr.io/finki-hub/recordings-listing:local`.
-- `compose.prod.yaml` pulls `ghcr.io/finki-hub/recordings-listing:latest` (set in CI). If you tag images differently (e.g., by commit SHA), adjust the image in `compose.prod.yaml` accordingly.
-
 ## License
 
 This project is licensed under the terms of the MIT license.
