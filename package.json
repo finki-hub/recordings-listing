@@ -1,23 +1,20 @@
 {
-  "name": "finki-hub-recordings-listing",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "vitepress build",
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview",
-    "lint:md": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist",
-    "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist --fix"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "type": "module",
   "devDependencies": {
     "markdownlint-cli": "^0.47.0",
     "vitepress": "^2.0.0-alpha.16",
     "vitepress-sidebar": "^1.33.1"
-  }
+  },
+  "license": "MIT",
+  "name": "finki-hub-recordings-listing",
+  "private": true,
+  "scripts": {
+    "build": "vitepress build",
+    "docs:build": "vitepress build",
+    "docs:dev": "vitepress dev",
+    "docs:preview": "vitepress preview",
+    "lint:md": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist",
+    "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist --fix"
+  },
+  "type": "module",
+  "version": "0.0.0"
 }
