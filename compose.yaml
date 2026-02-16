@@ -4,8 +4,8 @@ services:
   site:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: ghcr.io/finki-hub/recordings-listing:local
+    image: finki-hub/recordings-listing:latest
     ports:
       - "8080:80"
+    pull_policy: never
     restart: unless-stopped
