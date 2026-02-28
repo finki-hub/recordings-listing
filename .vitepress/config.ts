@@ -5,7 +5,7 @@ import type { VitePressSidebarOptions } from "vitepress-sidebar/types";
 
 const vitePressOptions: UserConfig = {
   lang: "mk",
-  title: "ФИНКИ СНИМКИ",
+  title: "ФИНКИ Хаб / Снимки",
   description: "Колекција од снимки од предмети на ФИНКИ",
   // Exclude the repository README from being compiled as a page
   srcExclude: ["README.md"],
@@ -27,7 +27,35 @@ const vitePressOptions: UserConfig = {
       });
     },
   },
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  head: [
+    // Favicons
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png', sizes: '96x96' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }],
+    ['link', { rel: 'manifest', href: '/site.webmanifest' }],
+
+    // SEO
+    ['meta', { name: 'author', content: 'ФИНКИ Хаб' }],
+    ['meta', { name: 'theme-color', content: '#0a0a0a' }],
+
+    // Open Graph
+    ['meta', { property: 'og:title', content: 'ФИНКИ Хаб / Снимки' }],
+    ['meta', { property: 'og:description', content: 'Колекција од снимки од предмети на ФИНКИ.' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:url', content: 'https://recordings.finki-hub.com' }],
+    ['meta', { property: 'og:locale', content: 'mk_MK' }],
+    ['meta', { property: 'og:image', content: 'https://recordings.finki-hub.com/favicon-96x96.png' }],
+
+    // Twitter
+    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:title', content: 'ФИНКИ Хаб / Снимки' }],
+    ['meta', { name: 'twitter:description', content: 'Колекција од снимки од предмети на ФИНКИ.' }],
+    ['meta', { name: 'twitter:image', content: 'https://recordings.finki-hub.com/favicon-96x96.png' }],
+
+    // Canonical
+    ['link', { rel: 'canonical', href: 'https://recordings.finki-hub.com' }],
+  ],
   themeConfig: {
     nav: [
       { text: "Дома", link: "/" },
