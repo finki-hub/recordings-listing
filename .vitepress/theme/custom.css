@@ -1,4 +1,126 @@
 /* .vitepress/theme/custom.css */
+
+/* ── Layout ───────────────────────────────────────────── */
 :root {
   --vp-sidebar-width: 350px;
+}
+
+/* ── Fonts (Inter + JetBrains Mono) ───────────────────── */
+:root {
+  --vp-font-family-base: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ── Brand / Accent — green from landing page ─────────── */
+/* Primary: HSL(142, 70%, 45%) ≈ #22c35d                  */
+:root {
+  --vp-c-brand-1: #22c35d;
+  --vp-c-brand-2: #1eab51;
+  --vp-c-brand-3: #1a9445;
+  --vp-c-brand-soft: rgba(34, 195, 93, 0.14);
+
+  /* tip / custom-block accent */
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+}
+
+.dark {
+  --vp-c-brand-1: #3dd68c;
+  --vp-c-brand-2: #30c77d;
+  --vp-c-brand-3: #22c35d;
+  --vp-c-brand-soft: rgba(61, 214, 140, 0.14);
+
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+}
+
+/* ── Dark-mode background — near-black like landing page ─ */
+.dark {
+  --vp-c-bg: #0a0a0a;
+  --vp-c-bg-soft: #121212;
+  --vp-c-bg-alt: #0f0f0f;
+  --vp-c-bg-elv: #121212;
+
+  --vp-c-divider: rgba(255, 255, 255, 0.08);
+  --vp-c-gutter: #000000;
+
+  --vp-nav-bg-color: #0a0a0a;
+  --vp-sidebar-bg-color: #0f0f0f;
+  --vp-local-nav-bg-color: #0a0a0a;
+}
+
+/* ── Button overrides ─────────────────────────────────── */
+:root {
+  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #fff;
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: #fff;
+  --vp-button-brand-active-bg: var(--vp-c-brand-3);
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: #fff;
+}
+
+/* ── Home hero accent ─────────────────────────────────── */
+:root {
+  --vp-home-hero-image-background-image: linear-gradient(
+    135deg,
+    hsl(142, 70%, 45%, 0.25) 0%,
+    hsl(160, 84%, 39%, 0.15) 100%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+/* ── Hero layout — align with feature cards ───────────── */
+.VPHero .container {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.VPHero .main {
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .VPHero .main .text {
+    font-size: 40px;
+    line-height: 1.2;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .main .text {
+    font-size: 48px;
+  }
+}
+
+/* ── Smooth scrolling ─────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Custom scrollbar (matches landing page) ──────────── */
+* {
+  scrollbar-color: rgba(128, 128, 128, 0.3) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.5);
 }

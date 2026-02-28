@@ -28,6 +28,11 @@ const vitePressOptions: UserConfig = {
     },
   },
   head: [
+    // Google Fonts (Inter + JetBrains Mono)
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap' }],
+
     // Favicons
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png', sizes: '96x96' }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
