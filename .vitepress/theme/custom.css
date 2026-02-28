@@ -27,10 +27,10 @@
 }
 
 .dark {
-  --vp-c-brand-1: #3dd68c;
-  --vp-c-brand-2: #30c77d;
-  --vp-c-brand-3: #22c35d;
-  --vp-c-brand-soft: rgba(61, 214, 140, 0.14);
+  --vp-c-brand-1: #22c35d;
+  --vp-c-brand-2: #1eab51;
+  --vp-c-brand-3: #1a9445;
+  --vp-c-brand-soft: rgba(34, 195, 93, 0.14);
 
   --vp-c-tip-1: var(--vp-c-brand-1);
   --vp-c-tip-2: var(--vp-c-brand-2);
