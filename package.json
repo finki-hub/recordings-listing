@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "markdownlint-cli": "^0.47.0",
+    "markdownlint-cli": "^0.48.0",
     "vitepress": "^2.0.0-alpha.16",
     "vitepress-sidebar": "^1.33.1"
   },
