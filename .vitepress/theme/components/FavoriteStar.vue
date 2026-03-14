@@ -25,22 +25,22 @@ const { isFavorite, toggleFavorite } = useFavorites();
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  margin-left: 6px;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--vp-c-text-2);
-  font-size: 16px;
+  color: var(--vp-c-text-3);
+  font-size: 14px;
   line-height: 1;
   cursor: pointer;
   transition: color 0.2s, transform 0.2s;
-  vertical-align: middle;
 }
 
 .favorite-star:hover {
-  color: var(--vp-c-brand);
+  color: var(--vp-c-brand-1);
   transform: scale(1.15);
 }
 
@@ -49,7 +49,8 @@ const { isFavorite, toggleFavorite } = useFavorites();
 }
 
 .favorite-star:focus-visible {
-  outline: 2px solid var(--vp-c-brand);
+  opacity: 1;
+  outline: 2px solid var(--vp-c-brand-1);
   outline-offset: 2px;
   border-radius: 4px;
 }

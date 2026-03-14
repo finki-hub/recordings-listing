@@ -2,26 +2,46 @@
   --vp-c-yellow: #fbbf24;
 }
 
+/* ── Sidebar link layout: ensure stars can be pushed right ── */
+.VPSidebarItem .item .link {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.VPSidebarItem .item .link .text {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+/* ── Favorite star ── */
 .favorite-star {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  margin-left: 6px;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--vp-c-text-2);
-  font-size: 16px;
+  color: var(--vp-c-text-3);
+  font-size: 14px;
   line-height: 1;
   cursor: pointer;
   transition: color 0.2s, transform 0.2s;
-  vertical-align: middle;
+  opacity: 0;
+}
+
+/* Show stars on sidebar item hover or when active (favorited) */
+.VPSidebarItem .item:hover .favorite-star,
+.favorite-star.active {
+  opacity: 1;
 }
 
 .favorite-star:hover {
-  color: var(--vp-c-brand);
+  color: var(--vp-c-brand-1);
   transform: scale(1.15);
 }
 
@@ -30,22 +50,50 @@
 }
 
 .favorite-star:focus-visible {
-  outline: 2px solid var(--vp-c-brand);
+  opacity: 1;
+  outline: 2px solid var(--vp-c-brand-1);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
+/* ── Favorites section ── */
 #favorites-section {
   padding-bottom: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
-#favorites-section > .item {
-  padding-top: 8px;
-  padding-bottom: 8px;
+@media (min-width: 960px) {
+  #favorites-section {
+    width: calc(var(--vp-sidebar-width) - 64px);
+  }
 }
 
-#favorites-section .items .VPSidebarItem.level-2 .indicator {
+#favorites-section > .item {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Hide the active indicator for pinned items (they're duplicates) */
+#favorites-section .items .VPSidebarItem .indicator {
   display: none;
+}
+
+/* Reset nesting padding so pinned items align with normal sidebar items */
+#favorites-section .items {
+  border-left: none !important;
+  padding-left: 0 !important;
+}
+
+#favorites-section .items .VPSidebarItem {
+  padding-bottom: 0;
+}
+
+#favorites-section .items .items {
+  display: none;
+}
+
+/* Pinned items always show their star */
+#favorites-section .favorite-star {
+  opacity: 1;
 }
