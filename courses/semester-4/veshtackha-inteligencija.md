@@ -60,6 +60,10 @@ keywords:
 9. [Перцептрон](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/cde2271ff834f644da477c87c7bdc5f7c1b3a5eb-1589298917076?meetingId=cde2271ff834f644da477c87c7bdc5f7c1b3a5eb-1589298917076)
 10. [Невронски мрежи](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/911de6183f8806220cae2074ebdd4bfce9227d5d-1652356466347)
 
+### Повторување и утврдување (2026)
+
+1. [Интелигентни агенти, неинформирано и информирано пребарување](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/4f6b7e968c8a8b453d5dc87e477b5512159b0d56-1773938658963)
+
 ## Белешки
 
 - **Нема**
