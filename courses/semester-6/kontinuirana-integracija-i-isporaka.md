@@ -24,6 +24,14 @@ keywords:
 10. [Kubernetes 5 (Storage, ConfigMaps, Secrets, StatefulSets)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/2fe524146a9bea2e48e4380668ac4f28a4ab4fd6-1684830908383)
 11. [Logging & Monitoring (Prometheus, Grafana, Tracing, IaaS)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/3300c94b95d0fb134b5f598522b1d2d80fc76ab9-1685431443814)
 
+## Аудиториски вежби + Лабораториски вежби
+
+### 2026 {#предавања-аудиториски-вежби-2026}
+
+1. [Docker](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/71a029d7ee1b77ea51d16c208c7213f5236cf176-1773126203480)
+2. [Docker Compose](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/71a029d7ee1b77ea51d16c208c7213f5236cf176-1773730906426)
+3. [GitHub Actions](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/71a029d7ee1b77ea51d16c208c7213f5236cf176-1774335766725)
+
 ## Дополнителна содржина
 
 - [Guest Lecture: GitOps](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/c9fcce533a7e6f2640d48a0361991d6f317ecd14-1680591198549)
