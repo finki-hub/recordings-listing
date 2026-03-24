@@ -51,7 +51,7 @@ keywords:
 
 1. [Агенти. Пребарување во простор на состојби. Неинформирано пребарување](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/3b2c507905f5249615499c4545ba6f673077cb1b-1645803861691)
 2. [Информирано пребарување](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/01eb1b9fc6949cf51585244e1fd9fc4c2d387eb8-1646311376894)
-3. [Проблеми кои исполнуваат услови](https://courses.finki.ukim.mk/mod/bigbluebuttonbn/view.php?id=116864)
+3. [Проблеми кои исполнуваат услови](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/774172b4534f5aef0d03a149b9c6f1aa6bcc8d99-1646915995657)
 4. [Локално пребарување. Генетски алгоритми](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/62d9b620430c353d42c49ff354e84341d4e91ab2-1647521733294)
 5. [Спротивставено пребарување](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/682195ce744f02471f22831c31dabccc79b4be6d-1648126439883)
 6. [Баесови мрежи](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/ce199529c45eb64e5be4077bc23f13045a2a9071-1650027273074)
