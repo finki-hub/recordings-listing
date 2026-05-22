@@ -2,7 +2,7 @@
   "devDependencies": {
     "markdownlint-cli": "^0.48.0",
     "vitepress": "^2.0.0-alpha.17",
-    "vitepress-sidebar": "^1.34.0"
+    "vitepress-sidebar": "^1.36.1"
   },
   "license": "MIT",
   "name": "finki-hub-recordings-listing",
