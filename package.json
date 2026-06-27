@@ -16,5 +16,8 @@
     "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist --fix"
   },
   "type": "module",
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "dependencies": {
+    "posthog-js": "^1.395.0"
+  }
 }

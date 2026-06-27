@@ -1,8 +1,15 @@
+import { posthog } from 'posthog-js';
 import DefaultTheme from 'vitepress/theme';
 import { h } from 'vue';
 import { useFavorites } from './composables/useFavorites';
 import './custom.css';
 import './style.css';
+
+const POSTHOG_KEY =
+  import.meta.env.VITE_POSTHOG_KEY ??
+  'phc_xXEqLMnYeDPuXA6HHwuasQMdSufDGryS8vZZuHmu9Qwd';
+const POSTHOG_HOST =
+  import.meta.env.VITE_POSTHOG_HOST ?? 'https://eu.i.posthog.com';
 
 export default {
   extends: DefaultTheme,
@@ -11,6 +18,14 @@ export default {
   },
   enhanceApp({ app, router }) {
     if (typeof window !== 'undefined') {
+      if (POSTHOG_KEY) {
+        posthog.init(POSTHOG_KEY, {
+          api_host: POSTHOG_HOST,
+          autocapture: true,
+          person_profiles: 'always',
+        });
+      }
+
       const injectStarsAndFavorites = () => {
         const { isFavorite, toggleFavorite } = useFavorites();
 
