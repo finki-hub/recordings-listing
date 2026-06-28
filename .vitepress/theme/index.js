@@ -23,6 +23,7 @@ export default {
           api_host: POSTHOG_HOST,
           autocapture: true,
           person_profiles: 'always',
+          capture_exceptions: true,
         });
       }
 
