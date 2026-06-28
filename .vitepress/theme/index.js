@@ -50,7 +50,7 @@ export default {
         };
 
         const onResultClick = (e) => {
-          const resultEl = e.target.closest('.result');
+          const resultEl = e.target instanceof Element ? e.target.closest('.result') : null;
           if (!resultEl) return;
 
           const allResults = [...document.querySelectorAll('.VPLocalSearchBox .result')];
