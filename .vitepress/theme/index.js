@@ -255,6 +255,7 @@ export default {
       };
 
       router.onAfterRouteChange = () => {
+        if (POSTHOG_KEY) posthog.capture('$pageview');
         setTimeout(initWithRetry, 50);
       };
 
