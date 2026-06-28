@@ -22,7 +22,7 @@ export default {
         posthog.init(POSTHOG_KEY, {
           api_host: POSTHOG_HOST,
           autocapture: true,
-          person_profiles: 'always',
+          person_profiles: 'identified_only',
           capture_exceptions: true,
         });
       }
