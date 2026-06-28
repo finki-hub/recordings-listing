@@ -23,6 +23,7 @@ export default {
           person_profiles: 'identified_only',
           capture_exceptions: true,
         });
+        posthog.register({ service: 'recordings-listing' });
       }
 
       const initSearchAnalytics = () => {
