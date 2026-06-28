@@ -1,8 +1,13 @@
+import { posthog } from 'posthog-js';
 import DefaultTheme from 'vitepress/theme';
 import { h } from 'vue';
 import { useFavorites } from './composables/useFavorites';
 import './custom.css';
 import './style.css';
+
+const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
+const POSTHOG_HOST =
+  import.meta.env.VITE_POSTHOG_HOST ?? 'https://eu.i.posthog.com';
 
 export default {
   extends: DefaultTheme,
@@ -11,6 +16,69 @@ export default {
   },
   enhanceApp({ app, router }) {
     if (typeof window !== 'undefined') {
+      if (POSTHOG_KEY) {
+        posthog.init(POSTHOG_KEY, {
+          api_host: POSTHOG_HOST,
+          autocapture: true,
+          person_profiles: 'identified_only',
+          capture_exceptions: true,
+        });
+      }
+
+      const initSearchAnalytics = () => {
+        let debounceTimer = null;
+        let attached = false;
+
+        const fireSearchSettle = () => {
+          const input = document.querySelector('.VPLocalSearchBox input');
+          const query = (input?.value ?? '').trim();
+          if (!query) return;
+
+          const resultItems = document.querySelectorAll('.VPLocalSearchBox .result');
+          const result_count = resultItems.length;
+
+          posthog.capture('catalog_search', { query, result_count });
+          if (result_count === 0) posthog.capture('search_zero_results', { query });
+        };
+
+        const onInput = () => {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(fireSearchSettle, 500);
+        };
+
+        const onResultClick = (e) => {
+          const resultEl = e.target instanceof Element ? e.target.closest('.result') : null;
+          if (!resultEl) return;
+
+          const allResults = [...document.querySelectorAll('.VPLocalSearchBox .result')];
+          const position = allResults.indexOf(resultEl);
+          const link = resultEl.querySelector('a[href]');
+          const result_id = link?.getAttribute('href') ?? '';
+
+          posthog.capture('result_clicked', { position, result_id });
+        };
+
+        const tryAttach = () => {
+          const searchBox = document.querySelector('.VPLocalSearchBox');
+          if (searchBox && !attached) {
+            attached = true;
+            const input = searchBox.querySelector('input');
+            if (input) input.addEventListener('input', onInput);
+            searchBox.addEventListener('click', onResultClick);
+          } else if (!searchBox && attached) {
+            attached = false;
+            clearTimeout(debounceTimer);
+          }
+        };
+
+        const bodyObserver = new MutationObserver(tryAttach);
+        bodyObserver.observe(document.body, { childList: true, subtree: false });
+      };
+
+      if (POSTHOG_KEY) {
+        initSearchAnalytics();
+      }
+
       const injectStarsAndFavorites = () => {
         const { isFavorite, toggleFavorite } = useFavorites();
 
@@ -184,6 +252,7 @@ export default {
       };
 
       router.onAfterRouteChange = () => {
+        if (POSTHOG_KEY) posthog.capture('$pageview');
         setTimeout(initWithRetry, 50);
       };
 
