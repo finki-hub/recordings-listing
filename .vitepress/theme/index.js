@@ -27,6 +27,61 @@ export default {
         });
       }
 
+      // Search analytics — hooks into VitePress built-in local search
+      const initSearchAnalytics = () => {
+        let debounceTimer = null;
+        let attached = false;
+
+        const fireSearchSettle = () => {
+          const input = document.querySelector('.VPLocalSearchBox input');
+          const query = (input?.value ?? '').trim();
+          if (!query) return;
+
+          const resultItems = document.querySelectorAll('.VPLocalSearchBox .result');
+          const result_count = resultItems.length;
+
+          posthog.capture('catalog_search', { query, result_count });
+          if (result_count === 0) posthog.capture('search_zero_results', { query });
+        };
+
+        const onInput = () => {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(fireSearchSettle, 500);
+        };
+
+        const onResultClick = (e) => {
+          const resultEl = e.target.closest('.result');
+          if (!resultEl) return;
+
+          const allResults = [...document.querySelectorAll('.VPLocalSearchBox .result')];
+          const position = allResults.indexOf(resultEl);
+          const link = resultEl.querySelector('a[href]');
+          const result_id = link?.getAttribute('href') ?? '';
+
+          posthog.capture('result_clicked', { position, result_id });
+        };
+
+        const tryAttach = () => {
+          const searchBox = document.querySelector('.VPLocalSearchBox');
+          if (searchBox && !attached) {
+            attached = true;
+            const input = searchBox.querySelector('input');
+            if (input) input.addEventListener('input', onInput);
+            searchBox.addEventListener('click', onResultClick);
+          } else if (!searchBox && attached) {
+            attached = false;
+            clearTimeout(debounceTimer);
+          }
+        };
+
+        const bodyObserver = new MutationObserver(tryAttach);
+        bodyObserver.observe(document.body, { childList: true, subtree: false });
+      };
+
+      if (POSTHOG_KEY) {
+        initSearchAnalytics();
+      }
+
       const injectStarsAndFavorites = () => {
         const { isFavorite, toggleFavorite } = useFavorites();
 
