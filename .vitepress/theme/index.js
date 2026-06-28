@@ -5,9 +5,7 @@ import { useFavorites } from './composables/useFavorites';
 import './custom.css';
 import './style.css';
 
-const POSTHOG_KEY =
-  import.meta.env.VITE_POSTHOG_KEY ??
-  'phc_xXEqLMnYeDPuXA6HHwuasQMdSufDGryS8vZZuHmu9Qwd';
+const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
 const POSTHOG_HOST =
   import.meta.env.VITE_POSTHOG_HOST ?? 'https://eu.i.posthog.com';
 
