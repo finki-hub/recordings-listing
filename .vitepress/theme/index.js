@@ -27,7 +27,6 @@ export default {
         });
       }
 
-      // Search analytics — hooks into VitePress built-in local search
       const initSearchAnalytics = () => {
         let debounceTimer = null;
         let attached = false;
