@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "markdownlint-cli": "^0.49.0",
-    "vitepress": "^2.0.0-alpha.17",
+    "vitepress": "^2.0.0-alpha.18",
     "vitepress-sidebar": "^1.36.1"
   },
   "license": "MIT",
