@@ -387,17 +387,19 @@ function readinessFixture(t) {
   const events = [];
   const modal = (value) => {
     const handlers = new Map();
+    const boxHandlers = new Map();
     const state = { busy: true, count: 0, empty: false };
     const input = { value, addEventListener: (name, fn) => handlers.set(name, fn), removeEventListener: (name) => handlers.delete(name) };
+    const result = { closest: () => result };
     // Installed VitePress: ul.results[aria-busy], with li.no-results only
     // when filterText && !results.length && enableNoResults.
     const list = { getAttribute: (name) => name === 'aria-busy' ? String(state.busy) : null, querySelector: (selector) => selector === '.no-results' && state.empty ? {} : null };
     const box = {
       querySelector: (selector) => selector === 'input' ? input : selector === 'ul.results' ? list : null,
-      querySelectorAll: () => Array.from({ length: state.count }, () => ({})),
-      addEventListener() {}, removeEventListener() {},
+      querySelectorAll: () => Array.from({ length: state.count }, () => result),
+      addEventListener: (name, fn) => boxHandlers.set(name, fn), removeEventListener: (name) => boxHandlers.delete(name),
     };
-    return { input, list, box, state, handlers };
+    return { input, list, box, state, handlers, boxHandlers, result };
   };
   const first = modal(PRIVATE);
   active = first;
@@ -502,4 +504,25 @@ test('busy refinements keep clicks pending and restore canceled-edit linkage wit
   assert.equal(events[2].properties.search_id, id);
   assert.equal(events.length, 3, 'restoring a settled query does not duplicate the intent');
   tracker.dispose();
+});
+
+test('programmatic clear before settlement cancels cached query and stale click linkage', async (t) => {
+  const { first, events, mutate, dispose } = readinessFixture(t);
+  first.state.busy = false;
+  first.state.count = 1;
+  await mutate();
+  t.mock.timers.tick(450);
+  assert.equal(events.length, 0);
+
+  // VitePress clearSearch() changes filterText/input.value without an input
+  // event. Its debounced result DOM catches up later, at 650ms.
+  first.input.value = '';
+  t.mock.timers.tick(50);
+  t.mock.timers.tick(150);
+  first.state.count = 0;
+  await mutate();
+  first.boxHandlers.get('click')({ target: first.result });
+
+  assert.deepEqual(events, [], 'neither the cleared attempt nor a stale result click is attributed');
+  dispose();
 });

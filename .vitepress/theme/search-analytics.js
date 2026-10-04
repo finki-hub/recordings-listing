@@ -1,6 +1,6 @@
 // Query identity is local, exact and ephemeral. Only a random attempt ID leaves
 // this module. The 500ms timer affects measurement, never VitePress search.
-export function createSearchTracker({ capture, randomUUID = () => crypto.randomUUID(), schedule = setTimeout, cancel = clearTimeout }) {
+export function createSearchTracker({ capture, randomUUID = () => crypto.randomUUID(), schedule = setTimeout, cancel = clearTimeout, readCurrent }) {
   let query = '';
   let count = 0;
   let ready = false;
@@ -17,7 +17,20 @@ export function createSearchTracker({ capture, randomUUID = () => crypto.randomU
   };
   const settle = () => {
     timer = undefined;
-    if (disposed || !query.trim() || !ready) return;
+    if (disposed) return;
+    // VitePress can update its input value without dispatching `input` (for
+    // example, when its clear button resets filterText). Re-read the live DOM
+    // before attributing a quiet-period timer to the cached query.
+    const current = readCurrent?.();
+    if (current) {
+      if (current.value !== query) {
+        update(current.value, current.count, current.ready);
+        return;
+      }
+      count = current.count;
+      ready = current.ready;
+    }
+    if (!query.trim() || !ready) return;
     if (settled?.query === query) {
       if (settled.count !== count) {
         settled.count = count;
@@ -28,23 +41,24 @@ export function createSearchTracker({ capture, randomUUID = () => crypto.randomU
     settled = { query, count, id: randomUUID() };
     reportResults('catalog_search_v2');
   };
+  const update = (value, resultCount, resultsReady = true) => {
+    if (disposed) return;
+    count = resultCount;
+    ready = resultsReady;
+    if (value !== query) {
+      query = value;
+      cancel(timer);
+      timer = undefined;
+      if (!query.trim()) { settled = undefined; return; }
+      timer = schedule(settle, 500);
+    } else if (timer === undefined) {
+      // The text quiet period may finish before VitePress loads its index or
+      // completes highlighting. Readiness resumes it without another delay.
+      settle();
+    }
+  };
   return {
-    update(value, resultCount, resultsReady = true) {
-      if (disposed) return;
-      count = resultCount;
-      ready = resultsReady;
-      if (value !== query) {
-        query = value;
-        cancel(timer);
-        timer = undefined;
-        if (!query.trim()) { settled = undefined; return; }
-        timer = schedule(settle, 500);
-      } else if (timer === undefined) {
-        // The text quiet period may finish before VitePress loads its index or
-        // completes highlighting. Readiness resumes it without another delay.
-        settle();
-      }
-    },
+    update,
     click(position) {
       if (disposed || !query.trim() || !Number.isInteger(position) || position < 0 || position >= count) return;
       const linked = ready && timer === undefined && settled?.query === query;
@@ -100,7 +114,19 @@ export function attachSearchAnalytics(capture, doc = document, Observer = Mutati
       if (nextInput) {
         box = next;
         input = nextInput;
-        tracker = createSearchTracker({ capture });
+        tracker = createSearchTracker({
+          capture,
+          readCurrent: () => {
+            const count = results().length;
+            const list = box.querySelector('ul.results');
+            return {
+              value: input.value,
+              count,
+              ready: list?.getAttribute('aria-busy') === 'false' &&
+                (count > 0 || Boolean(list.querySelector('.no-results'))),
+            };
+          },
+        });
         input.addEventListener('input', sync);
         box.addEventListener('click', click, true);
         box.addEventListener('keydown', keydown, true);
