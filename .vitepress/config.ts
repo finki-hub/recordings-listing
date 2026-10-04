@@ -1,9 +1,16 @@
 import { defineConfig, UserConfig } from "vitepress";
 import { withSidebar } from "vitepress-sidebar";
+import { resolveBuildRevision } from "./theme/analytics.js";
 
 import type { VitePressSidebarOptions } from "vitepress-sidebar/types";
 
 const vitePressOptions: UserConfig = {
+  vite: {
+    define: {
+      // GitHub's reusable Pages workflow inherits GITHUB_SHA at the build step.
+      __APP_REVISION__: JSON.stringify(resolveBuildRevision(process.env)) ?? 'undefined',
+    },
+  },
   lang: "mk",
   title: "ФИНКИ Хаб / Снимки",
   description: "Колекција од снимки од предмети на ФИНКИ",

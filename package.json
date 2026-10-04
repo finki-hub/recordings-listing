@@ -8,6 +8,7 @@
   "name": "finki-hub-recordings-listing",
   "private": true,
   "scripts": {
+    "test": "node --test tests/*.test.js",
     "build": "vitepress build",
     "docs:build": "vitepress build",
     "docs:dev": "vitepress dev",
