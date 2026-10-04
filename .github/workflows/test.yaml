@@ -1,4 +1,4 @@
-name: Linters
+name: Test
 
 on:
   push:
@@ -11,5 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  markdown-and-build:
-    uses: finki-hub/.github/.github/workflows/docs-check.yaml@main
+  test:
+    uses: finki-hub/.github/.github/workflows/vitest.yaml@main
+    with:
+      test-args: ''
