@@ -19,6 +19,6 @@
   "type": "module",
   "version": "0.0.0",
   "dependencies": {
-    "posthog-js": "^1.435.0"
+    "posthog-js": "^1.435.8"
   }
 }
