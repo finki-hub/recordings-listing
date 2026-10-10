@@ -12,7 +12,7 @@ A VitePress-powered website that aggregates links to lecture and exercise record
 
 ## Prerequisites
 
-- Node.js 22.12 or newer (Node.js 24 LTS is recommended and tested).
+- Node.js 24 or newer (LTS recommended)
 
 ## Setup
 
@@ -42,44 +42,11 @@ npm run docs:build
 
 The output is generated in `.vitepress/dist`.
 
-The shipped Docker image keeps analytics disabled. `VITE_POSTHOG_*` values are
-frontend build-time settings and are not nginx runtime variables. `.env*` files
-are intentionally excluded from the Docker build context; do not expect runtime
-container environment variables to enable analytics.
-
 Preview the production build locally:
 
 ```sh
 npm run docs:preview
 ```
-
-## Testing
-
-Run the fast Node unit tests with `npm test`. Built-site browser tests are a
-separate lane:
-
-```sh
-node node_modules/@playwright/test/cli.js install chromium
-npm run test:integration
-```
-
-The integration runner builds once with a dummy analytics token, then owns a
-loopback-only preview on port 4187 (the usual preview on 4173 is not reused).
-Vite serves the VitePress-built output because this VitePress version's preview
-CLI does not support a loopback host option.
-It tests real favorites/sidebar hydration, built metadata and Learnify rendering,
-local-search alias results, and intercepted SDK telemetry. Analytics requests
-never leave the browser: the dummy loopback endpoint is intercepted before load.
-Only the telemetry fixture disables automated-browser bot hints, which the SDK
-otherwise suppresses; the production SDK and privacy filter are not mocked.
-Chromium runs with one worker and no retries; failed runs retain screenshots and
-traces in `.playwright/results/`. Preview processes are stopped on success or
-failure. CI runs unit tests in `.github/workflows/test.yaml` and browser tests in
-`.github/workflows/e2e.yaml`. Both run on pushes to `main`/`dev`, pull request
-open/update/reopen, and manual dispatch. The separate required checks are
-`vitest / Vitest` and `playwright / Playwright`. The reusable workflow does not
-currently upload failure traces or screenshots; these remain available from local
-runs.
 
 ## Linting
 
