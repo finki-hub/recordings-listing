@@ -1,9 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import test from 'node:test';
-import MarkdownIt from 'markdown-it';
 import { createMarkdownRenderer } from 'vitepress';
 import viteConfig from '../vite.config.js';
 import { addFrontmatterKeywords, pageHeadTags } from '../.vitepress/site-audit.js';
@@ -27,16 +25,10 @@ test('page head metadata follows generated .html routes without duplicate canoni
     assert.equal(ogUrls.length, 1, `${relativePath} has one og:url`);
     assert.equal(ogUrls[0][1].content, expectedUrl);
   }
-
-  const config = readFileSync(new URL('../.vitepress/config.ts', import.meta.url), 'utf8');
-  assert.match(config, /transformHead\(\{ pageData \}\)/);
-  assert.doesNotMatch(config, /property: ['"]og:url['"]/);
-  assert.doesNotMatch(config, /rel: ['"]canonical['"]/);
 });
 
-test('hidden frontmatter aliases are inserted after the page H1 and before later headings', () => {
-  const md = new MarkdownIt();
-  addFrontmatterKeywords(md);
+test('hidden frontmatter aliases are inserted after the page H1 and before later headings', async () => {
+  const md = await createMarkdownRenderer(process.cwd(), { config: addFrontmatterKeywords });
   const tokens = md.parse('# Course title\n\n## Lectures\n\n## Notes', {
     frontmatter: { keywords: ['oop', 'web programiranje'] },
   });

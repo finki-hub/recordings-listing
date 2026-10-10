@@ -35,12 +35,13 @@ function createSharedStorage(initialValue = null) {
           if (type === 'storage') listeners.delete(listener);
         },
       },
+      get listenerCount() { return listeners.size; },
     };
     clients.push(client);
     return client;
   }
 
-  return { createClient, get value() { return value; } };
+  return { createClient, get value() { return value; }, setValue(nextValue) { value = nextValue; } };
 }
 
 test('retains existing persisted favorites and toggles a link in the current tab', () => {
@@ -59,7 +60,7 @@ test('retains existing persisted favorites and toggles a link in the current tab
   assert.equal(state.isFavorite('/courses/programming'), true);
 });
 
-test('synchronizes additions and removals between two tabs without losing concurrent updates', () => {
+test('synchronizes sequential additions and removals between tabs', () => {
   const shared = createSharedStorage();
   const firstTab = createFavoritesState(shared.createClient());
   const secondTab = createFavoritesState(shared.createClient());
@@ -152,10 +153,55 @@ test('ignores unrelated storage events and removes its listener on dispose', () 
   const state = createFavoritesState(client);
   let notifications = 0;
   state.subscribe(() => notifications++);
+  assert.equal(client.listenerCount, 1);
 
   client.emit({ key: 'unrelated', newValue: '[]' });
   assert.equal(notifications, 0);
   state.dispose();
+  assert.equal(client.listenerCount, 0, 'dispose removes the storage listener itself');
   client.emit({ key: 'favorites', newValue: '[]' });
   assert.equal(notifications, 0);
+});
+
+test('malformed and non-array storage events preserve state while a clear event empties it', () => {
+  const shared = createSharedStorage(JSON.stringify(['/courses/math']));
+  const client = shared.createClient();
+  const state = createFavoritesState(client);
+  const snapshots = [];
+  state.subscribe((favorites) => snapshots.push([...favorites]));
+
+  shared.setValue('{malformed');
+  client.emit({ key: 'favorites', newValue: '{malformed' });
+  assert.deepEqual([...state.favorites], ['/courses/math']);
+
+  shared.setValue(JSON.stringify({ not: 'an array' }));
+  client.emit({ key: 'favorites', newValue: JSON.stringify({ not: 'an array' }) });
+  assert.deepEqual([...state.favorites], ['/courses/math']);
+
+  shared.setValue(null);
+  client.emit({ key: null, newValue: null });
+  assert.deepEqual([...state.favorites], []);
+  assert.deepEqual(snapshots, [['/courses/math'], ['/courses/math'], []]);
+});
+
+test('favorites and subscriber snapshots are isolated, and unsubscribe stops notifications', () => {
+  const state = createFavoritesState({ storage: null });
+  state.toggleFavorite('/courses/math');
+
+  const exposed = state.favorites;
+  exposed.clear();
+  assert.equal(state.isFavorite('/courses/math'), true, 'mutating the getter result does not mutate state');
+
+  const received = [];
+  const unsubscribe = state.subscribe((snapshot) => received.push(snapshot));
+  state.toggleFavorite('/courses/programming');
+  assert.deepEqual([...received[0]], ['/courses/math', '/courses/programming']);
+
+  unsubscribe();
+  state.toggleFavorite('/courses/math');
+  assert.equal(received.length, 1, 'unsubscribe prevents later notifications');
+  assert.deepEqual([...state.favorites], ['/courses/programming']);
+  assert.deepEqual([...received[0]], ['/courses/math', '/courses/programming'], 'a past notification is not a live view');
+  received[0].clear();
+  assert.equal(state.isFavorite('/courses/programming'), true, 'mutating a published snapshot does not mutate state');
 });
