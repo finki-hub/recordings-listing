@@ -1,6 +1,7 @@
 import { posthog } from 'posthog-js';
 import DefaultTheme from 'vitepress/theme';
 import { h } from 'vue';
+import LearnifyCourseCallout from './components/LearnifyCourseCallout.vue';
 import { useFavorites } from './composables/useFavorites';
 import { initAnalytics } from './analytics.js';
 import { attachSearchAnalytics } from './search-analytics.js';
@@ -14,7 +15,9 @@ const POSTHOG_HOST =
 export default {
   extends: DefaultTheme,
   Layout() {
-    return h(DefaultTheme.Layout, null, {});
+    return h(DefaultTheme.Layout, null, {
+      'doc-before': () => h(LearnifyCourseCallout),
+    });
   },
   enhanceApp({ app, router }) {
     if (typeof window !== 'undefined') {
