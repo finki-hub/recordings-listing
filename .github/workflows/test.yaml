@@ -15,18 +15,3 @@ jobs:
     uses: finki-hub/.github/.github/workflows/vitest.yaml@main
     with:
       test-args: ''
-  playwright:
-    uses: finki-hub/.github/.github/workflows/playwright.yaml@main
-    with:
-      install-command: npm ci --ignore-scripts
-      test-command: npm run test:integration
-  integration:
-    name: Integration
-    runs-on: ubuntu-latest
-    needs: playwright
-    if: ${{ always() }}
-    timeout-minutes: 2
-    steps:
-      - env:
-          PLAYWRIGHT_RESULT: ${{ needs.playwright.result }}
-        run: '[ "$PLAYWRIGHT_RESULT" = success ]'

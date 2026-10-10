@@ -74,10 +74,12 @@ Only the telemetry fixture disables automated-browser bot hints, which the SDK
 otherwise suppresses; the production SDK and privacy filter are not mocked.
 Chromium runs with one worker and no retries; failed runs retain screenshots and
 traces in `.playwright/results/`. Preview processes are stopped on success or
-failure. CI uses the organization's reusable Playwright workflow; an `Integration`
-gate preserves the required check and fails unless Playwright succeeds. The
-reusable workflow does not currently upload failure traces or screenshots; these
-remain available from local runs. The existing unit job remains separate.
+failure. CI runs unit tests in `.github/workflows/test.yaml` and browser tests in
+`.github/workflows/e2e.yaml`. Both run on pushes to `main`/`dev`, pull request
+open/update/reopen, and manual dispatch. Their checks remain separate:
+`vitest / Vitest`, `playwright / Playwright`, and the `Integration` gate, which
+fails unless Playwright succeeds. The reusable workflow does not currently upload
+failure traces or screenshots; these remain available from local runs.
 
 ## Linting
 
