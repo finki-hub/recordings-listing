@@ -15,24 +15,19 @@ jobs:
     uses: finki-hub/.github/.github/workflows/vitest.yaml@main
     with:
       test-args: ''
+  playwright:
+    uses: finki-hub/.github/.github/workflows/playwright.yaml@main
+    with:
+      container-image: mcr.microsoft.com/playwright:v1.64.0-noble
+      install-command: npm ci --ignore-scripts
+      test-command: npm run test:integration
   integration:
     name: Integration
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    needs: playwright
+    if: ${{ always() }}
+    timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 'lts/*'
-          cache: npm
-      - run: npm ci --ignore-scripts
-      - run: node node_modules/@playwright/test/cli.js install --with-deps chromium
-      - run: npm run test:integration
-      - uses: actions/upload-artifact@v7
-        if: failure()
-        with:
-          name: integration-results
-          path: .playwright/results
-          include-hidden-files: true
-          if-no-files-found: ignore
-          retention-days: 7
+      - env:
+          PLAYWRIGHT_RESULT: ${{ needs.playwright.result }}
+        run: '[ "$PLAYWRIGHT_RESULT" = success ]'
