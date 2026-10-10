@@ -143,9 +143,8 @@ test('final allowlist reconstructs envelope and properties, validating safe scal
 });
 
 // This is a browser transport fixture, not an SDK mock. Execute the installed
-// SDK in an isolated realm: every network surface terminates here. The installed
-// CommonJS entrypoint retains private method names for remote-config testing;
-// the shipped minified bundle is exercised separately against the same fixture.
+// SDK in an isolated realm: every network surface terminates here. Remote config
+// is preloaded through the browser bootstrap global before SDK initialization.
 function sdkBrowser(bundle = false, offline = false) {
   const requests = [];
   const errors = [];
@@ -237,21 +236,30 @@ async function decode(request) {
 }
 
 test('installed SDK wire excludes private inputs, including persisted defaults and remote-enabled features', async () => {
-  const { sdk, requests, errors, time, listeners } = sdkBrowser();
+  const { sdk, context, requests, errors, time, listeners } = sdkBrowser(true);
+  let remoteConfigApplied = false;
+  context._POSTHOG_REMOTE_CONFIG = {
+    [key]: {
+      config: {
+        get supportedCompression() {
+          remoteConfigApplied = true;
+          return ['gzip-js'];
+        },
+        sessionRecording: { enabled: true }, autocapture: { enabled: true },
+        capturePerformance: true, captureHeatmaps: true, captureDeadClicks: true,
+        surveys: [{ id: PRIVATE }], productTours: [{ id: PRIVATE }],
+        autocaptureExceptions: true, logs: { captureConsoleLogs: true },
+      },
+    },
+  };
   sdk.init(key, analyticsConfig(key));
+  assert.equal(remoteConfigApplied, true, 'preloaded remote config was processed');
+  assert.deepEqual(errors, [], 'remote configuration applies without SDK errors');
   const capture = (event, properties) => sdk.capture(event, properties);
   assert.equal(sdk.config.token, key, JSON.stringify(errors));
   assert.equal(requests.length, 0, 'initialization must not contact flags/config/replay');
   sdk.register({ query: PRIVATE, nested: { secret: encoded }, $current_url: PRIVATE, $set: { email: PRIVATE }, $set_once: { query: encoded }, app_revision: sha });
   capture('catalog_search_v2', { search_id: attempt, result_count: 2, query: PRIVATE, result_id: encoded, $set: { email: PRIVATE }, $set_once: { query: encoded } });
-  // Exercise the real SDK remote-config entrypoint; explicit local prohibitions
-  // must still win if a cached/server configuration arrives.
-  sdk._onRemoteConfig({ ok: true, config: {
-    supportedCompression: ['gzip-js'], sessionRecording: { enabled: true }, autocapture: { enabled: true },
-    capturePerformance: true, captureHeatmaps: true, captureDeadClicks: true,
-    surveys: [{ id: PRIVATE }], productTours: [{ id: PRIVATE }],
-    autocaptureExceptions: true, logs: { captureConsoleLogs: true },
-  } });
   for (const event of ['$pageview', '$autocapture', '$exception', '$snapshot', '$web_vitals', '$identify', '$heatmaps', 'catalog_search']) sdk.capture(event, { query: PRIVATE });
   sdk.captureException(new Error(PRIVATE));
   sdk.captureLog({ body: PRIVATE, level: 'error', attributes: { query: encoded } });
