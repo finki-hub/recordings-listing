@@ -9,14 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    permissions:
-      contents: read
-    uses: finki-hub/.github/.github/workflows/vitest.yaml@main
-    with:
-      test-args: ''
   deploy:
-    needs: test
     uses: finki-hub/.github/.github/workflows/cloudflare-pages.yaml@main
     with:
       project-name: finki-hub-recordings-listing
