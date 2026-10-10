@@ -14,13 +14,11 @@ jobs:
       contents: read
     uses: finki-hub/.github/.github/workflows/vitest.yaml@main
     with:
-      node-version: '24'
       test-args: ''
   deploy:
     needs: test
     uses: finki-hub/.github/.github/workflows/cloudflare-pages.yaml@main
     with:
-      node-version: '24'
       project-name: finki-hub-recordings-listing
       directory: .vitepress/dist
     secrets: inherit

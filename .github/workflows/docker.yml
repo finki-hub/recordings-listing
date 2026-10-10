@@ -14,7 +14,6 @@ jobs:
       contents: read
     uses: finki-hub/.github/.github/workflows/vitest.yaml@main
     with:
-      node-version: '24'
       test-args: ''
   docker:
     needs: test
