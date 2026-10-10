@@ -1,5 +1,1 @@
-export default {
-  server: {
-    allowedHosts: true,
-  }
-}
+export default {};

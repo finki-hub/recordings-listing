@@ -9,6 +9,14 @@ permissions:
   packages: write
 
 jobs:
+  test:
+    permissions:
+      contents: read
+    uses: finki-hub/.github/.github/workflows/vitest.yaml@main
+    with:
+      node-version: '24'
+      test-args: ''
   docker:
+    needs: test
     uses: finki-hub/.github/.github/workflows/docker.yaml@main
     secrets: inherit

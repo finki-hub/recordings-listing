@@ -14,46 +14,42 @@
   min-width: 0;
 }
 
-/* ── Favorite star ── */
+/* ── Accessible favorite control ── */
 .favorite-star {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  margin-left: 4px;
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--vp-c-text-3);
-  font-size: 14px;
+  color: var(--vp-c-text-2);
+  font-size: 16px;
   line-height: 1;
   cursor: pointer;
-  transition: color 0.2s, transform 0.2s;
-  opacity: 0;
-}
-
-/* Show stars on sidebar item hover or when active (favorited) */
-.VPSidebarItem .item:hover .favorite-star,
-.favorite-star.active {
-  opacity: 1;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s, transform 0.2s;
 }
 
 .favorite-star:hover {
   color: var(--vp-c-brand-1);
-  transform: scale(1.15);
+  background: var(--vp-c-brand-soft);
+}
+
+.favorite-star:active {
+  transform: scale(0.96);
 }
 
 .favorite-star.active {
-  color: var(--vp-c-yellow);
+  color: var(--favorite-star-active);
 }
 
 .favorite-star:focus-visible {
-  opacity: 1;
   outline: 2px solid var(--vp-c-brand-1);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline-offset: 1px;
 }
 
 /* ── Favorites section ── */
@@ -70,6 +66,9 @@
 }
 
 #favorites-section > .item {
+  display: flex;
+  align-items: center;
+  cursor: default;
   padding-top: 4px;
   padding-bottom: 4px;
 }
@@ -91,9 +90,4 @@
 
 #favorites-section .items .items {
   display: none;
-}
-
-/* Pinned items always show their star */
-#favorites-section .favorite-star {
-  opacity: 1;
 }

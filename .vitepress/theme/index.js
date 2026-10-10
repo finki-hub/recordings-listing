@@ -3,6 +3,7 @@ import DefaultTheme from 'vitepress/theme';
 import { h } from 'vue';
 import LearnifyCourseCallout from './components/LearnifyCourseCallout.vue';
 import { useFavorites } from './composables/useFavorites';
+import { captureFavoritesFocus, restoreFavoritesFocus } from './favorites-focus.js';
 import { initAnalytics } from './analytics.js';
 import { attachSearchAnalytics } from './search-analytics.js';
 import './custom.css';
@@ -21,15 +22,31 @@ export default {
   },
   enhanceApp({ app, router }) {
     if (typeof window !== 'undefined') {
+      const { isFavorite, toggleFavorite, subscribe, dispose } = useFavorites();
+
       if (POSTHOG_KEY) {
         const capture = initAnalytics(posthog, POSTHOG_KEY, POSTHOG_HOST);
         const disposeAnalytics = attachSearchAnalytics(capture);
         app.onUnmount(disposeAnalytics);
       }
 
-      const injectStarsAndFavorites = () => {
-        const { isFavorite, toggleFavorite } = useFavorites();
+      const applyFavoriteState = (button, link) => {
+        const active = isFavorite(link);
+        button.classList.toggle('active', active);
+        button.textContent = active ? '★' : '☆';
+        button.setAttribute('aria-label', active ? 'Отстрани од омилени' : 'Додади во омилени');
+        button.setAttribute('title', active ? 'Отстрани од омилени' : 'Додади во омилени');
+        button.setAttribute('aria-pressed', String(active));
+      };
 
+      const handleFavoriteClick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const link = event.currentTarget.dataset.favoriteLink;
+        if (link) toggleFavorite(link);
+      };
+
+      const injectStarsAndFavorites = () => {
         const sidebarLinks = document.querySelectorAll('.VPSidebarItem a[href]');
         if (sidebarLinks.length === 0) {
           return false;
@@ -42,19 +59,21 @@ export default {
             return;
           }
 
-          if (anchor.querySelector('.favorite-star')) return;
+          if (anchor.closest('#favorites-section')) return;
+          const item = anchor.closest('.item');
+          if (!item) return;
 
-          const star = document.createElement('span');
-          star.className = 'favorite-star' + (isFavorite(href) ? ' active' : '');
-          star.innerHTML = isFavorite(href) ? '★' : '☆';
-          star.onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleFavorite(href);
-            updateAllStarsAndFavorites();
-          };
+          let button = [...item.querySelectorAll('.favorite-star')]
+            .find((candidate) => candidate.dataset.favoriteLink === href);
+          if (button) return;
 
-          anchor.appendChild(star);
+          button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'favorite-star';
+          button.dataset.favoriteLink = href;
+          button.addEventListener('click', handleFavoriteClick);
+          applyFavoriteState(button, href);
+          anchor.insertAdjacentElement('afterend', button);
         });
 
         createFavoritesSection();
@@ -62,25 +81,17 @@ export default {
       };
 
       const updateAllStarsAndFavorites = () => {
-        const { isFavorite } = useFavorites();
-
         document.querySelectorAll('.favorite-star').forEach((star) => {
-          const anchor = star.parentElement;
-          const href = anchor?.getAttribute('href');
-          if (href) {
-            const active = isFavorite(href);
-            star.className = 'favorite-star' + (active ? ' active' : '');
-            star.innerHTML = active ? '★' : '☆';
-          }
+          const link = star.dataset.favoriteLink;
+          if (link) applyFavoriteState(star, link);
         });
 
         createFavoritesSection();
       };
 
       const createFavoritesSection = () => {
-        const { isFavorite } = useFavorites();
-
         const existingSection = document.querySelector('#favorites-section');
+        const savedFocus = captureFavoritesFocus(existingSection, document.activeElement);
         if (existingSection) {
           existingSection.remove();
         }
@@ -97,7 +108,10 @@ export default {
           }
         });
 
-        if (favoriteLinks.length === 0) return;
+        if (favoriteLinks.length === 0) {
+          restoreFavoritesFocus(document, savedFocus);
+          return;
+        }
 
         let sidebar = document.querySelector('.VPSidebar nav');
         if (!sidebar) {
@@ -130,8 +144,6 @@ export default {
 
         const header = document.createElement('div');
         header.className = 'item';
-        header.setAttribute('role', 'button');
-        header.setAttribute('tabindex', '0');
 
         const indicator = document.createElement('div');
         indicator.className = 'indicator';
@@ -149,22 +161,8 @@ export default {
         favoriteLinks.forEach(({ item, href }) => {
           const clone = item.cloneNode(true);
 
-          const cloneLink = clone.querySelector('a[href]');
-          if (cloneLink) {
-            const cloneStar = cloneLink.querySelector('.favorite-star');
-            if (cloneStar) {
-              cloneStar.onclick = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const href = cloneLink.getAttribute('href');
-                if (href) {
-                  const { toggleFavorite } = useFavorites();
-                  toggleFavorite(href);
-                  updateAllStarsAndFavorites();
-                }
-              };
-            }
-          }
+          const cloneStar = clone.querySelector('.favorite-star');
+          if (cloneStar) cloneStar.addEventListener('click', handleFavoriteClick);
 
           itemsContainer.appendChild(clone);
         });
@@ -178,7 +176,15 @@ export default {
         } else {
           sidebar.appendChild(favSection);
         }
+
+        restoreFavoritesFocus(document, savedFocus);
       };
+
+      const unsubscribeFavorites = subscribe(updateAllStarsAndFavorites);
+      app.onUnmount(() => {
+        unsubscribeFavorites();
+        dispose();
+      });
 
       const initWithRetry = () => {
         if (!injectStarsAndFavorites()) {

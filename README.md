@@ -12,7 +12,7 @@ A VitePress-powered website that aggregates links to lecture and exercise record
 
 ## Prerequisites
 
-- Node.js 20+ (LTS recommended)
+- Node.js 22.12 or newer (Node.js 24 LTS is recommended and tested).
 
 ## Setup
 
@@ -41,6 +41,11 @@ npm run docs:build
 ```
 
 The output is generated in `.vitepress/dist`.
+
+The shipped Docker image keeps analytics disabled. `VITE_POSTHOG_*` values are
+frontend build-time settings and are not nginx runtime variables. `.env*` files
+are intentionally excluded from the Docker build context; do not expect runtime
+container environment variables to enable analytics.
 
 Preview the production build locally:
 

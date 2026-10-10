@@ -1,6 +1,7 @@
 import { defineConfig, UserConfig } from "vitepress";
 import { withSidebar } from "vitepress-sidebar";
 import { resolveBuildRevision } from "./theme/analytics.js";
+import { addFrontmatterKeywords, pageHeadTags } from "./site-audit.js";
 
 import type { VitePressSidebarOptions } from "vitepress-sidebar/types";
 
@@ -14,25 +15,13 @@ const vitePressOptions: UserConfig = {
   lang: "mk",
   title: "ФИНКИ Хаб / Снимки",
   description: "Колекција од снимки од предмети на ФИНКИ",
+  transformHead({ pageData }) {
+    return pageHeadTags(pageData.relativePath);
+  },
   // Exclude the repository README from being compiled as a page
   srcExclude: ["README.md"],
   markdown: {
-    config: (md) => {
-      md.core.ruler.push("frontmatter-keywords", (state) => {
-        const env: any = state.env || {};
-        const keywords: unknown = env.frontmatter?.keywords;
-        if (Array.isArray(keywords) && keywords.length > 0) {
-          // Append a hidden HTML block so the terms are indexed by local search
-          // without authors needing to place HTML in the Markdown.
-          const token = new (state as any).Token("html_block", "", 0);
-          token.content = `<div style="display:none">${keywords.join(
-            " "
-          )}</div>`;
-          state.tokens.push(token);
-        }
-        return true;
-      });
-    },
+    config: addFrontmatterKeywords,
   },
   head: [
     // Google Fonts (Inter + JetBrains Mono)
@@ -55,7 +44,6 @@ const vitePressOptions: UserConfig = {
     ['meta', { property: 'og:title', content: 'ФИНКИ Хаб / Снимки' }],
     ['meta', { property: 'og:description', content: 'Колекција од снимки од предмети на ФИНКИ.' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:url', content: 'https://recordings.finki-hub.com' }],
     ['meta', { property: 'og:locale', content: 'mk_MK' }],
     ['meta', { property: 'og:image', content: 'https://recordings.finki-hub.com/favicon-96x96.png' }],
 
@@ -65,8 +53,6 @@ const vitePressOptions: UserConfig = {
     ['meta', { name: 'twitter:description', content: 'Колекција од снимки од предмети на ФИНКИ.' }],
     ['meta', { name: 'twitter:image', content: 'https://recordings.finki-hub.com/favicon-96x96.png' }],
 
-    // Canonical
-    ['link', { rel: 'canonical', href: 'https://recordings.finki-hub.com' }],
   ],
   themeConfig: {
     nav: [

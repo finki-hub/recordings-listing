@@ -1,44 +1,24 @@
 import { ref, computed } from 'vue'
+import { createFavoritesState } from '../favorites-state.js'
 
-const STORAGE_KEY = 'favorites'
-
-function loadFavorites(): Set<string> {
-  if (typeof window === 'undefined') return new Set()
+function getStorage(): Storage | undefined {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    return stored ? new Set(JSON.parse(stored)) : new Set()
+    return typeof window === 'undefined' ? undefined : window.localStorage
   } catch {
-    return new Set()
+    return undefined
   }
 }
 
-function saveFavorites(favorites: Set<string>) {
-  if (typeof window === 'undefined') return
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([...favorites]))
-  } catch {
-  }
-}
-
-const favorites = ref<Set<string>>(new Set())
-
-if (typeof window !== 'undefined' && favorites.value.size === 0) {
-  favorites.value = loadFavorites()
-}
+const state = createFavoritesState({
+  storage: getStorage(),
+  eventTarget: typeof window === 'undefined' ? undefined : window,
+})
+const favorites = ref(state.favorites)
+const unsubscribeState = state.subscribe((next) => { favorites.value = next })
 
 export function useFavorites() {
-  const isFavorite = (link: string) => favorites.value.has(link)
-
-  const toggleFavorite = (link: string) => {
-    if (favorites.value.has(link)) {
-      favorites.value.delete(link)
-    } else {
-      favorites.value.add(link)
-    }
-    favorites.value = new Set(favorites.value)
-    saveFavorites(favorites.value)
-  }
-
+  const isFavorite = (link: string) => state.isFavorite(link)
+  const toggleFavorite = (link: string) => state.toggleFavorite(link)
   const sortedItems = computed(() => (items: any[]) => {
     return [...items].sort((a, b) => {
       const aFav = isFavorite(a.link)
@@ -53,6 +33,11 @@ export function useFavorites() {
     favorites,
     isFavorite,
     toggleFavorite,
+    subscribe: state.subscribe,
+    dispose() {
+      unsubscribeState()
+      state.dispose()
+    },
     sortedItems
   }
 }
