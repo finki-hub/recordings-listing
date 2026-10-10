@@ -18,7 +18,6 @@ jobs:
   playwright:
     uses: finki-hub/.github/.github/workflows/playwright.yaml@main
     with:
-      container-image: mcr.microsoft.com/playwright:v1.64.0-noble
       install-command: npm ci --ignore-scripts
       test-command: npm run test:integration
   integration:
