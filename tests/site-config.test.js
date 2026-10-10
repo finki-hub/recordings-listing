@@ -84,17 +84,17 @@ test('representative aliases belong to their course search sections, not Notes',
       const contentStart = heading.index + heading[0].length;
       const nextHeadingStart = headings[index + 1]?.index ?? html.length;
       return {
-        title: heading[2].replace(/<[^>]*>/g, '').replace(/&#8203;/g, '').trim(),
-        text: html.slice(contentStart, nextHeadingStart).replace(/<[^>]*>/g, '').toLowerCase(),
+        headingHtml: heading[2],
+        sectionHtml: html.slice(contentStart, nextHeadingStart).toLowerCase(),
       };
     });
-    const courseSection = searchSections.find((section) => section.title === page.title);
-    const notesSection = searchSections.find((section) => section.title.toLowerCase() === 'белешки');
+    const courseSection = searchSections.find((section) => section.headingHtml.includes(page.title));
+    const notesSection = searchSections.find((section) => section.headingHtml.includes('Белешки'));
 
     assert.ok(courseSection, `${page.path} has an indexed course-title section`);
-    assert.ok(courseSection.text.includes(page.alias), `${page.alias} is searchable under its course`);
+    assert.ok(courseSection.sectionHtml.includes(page.alias), `${page.alias} is searchable under its course`);
     assert.ok(notesSection, `${page.path} has a Notes section`);
-    assert.ok(!notesSection.text.includes(page.alias), `${page.alias} is not assigned to Notes`);
+    assert.ok(!notesSection.sectionHtml.includes(page.alias), `${page.alias} is not assigned to Notes`);
     assert.match(html, /<div style="display:none">[\s\S]*?<\/div>/, 'aliases stay hidden in rendered UI');
   }
 });
