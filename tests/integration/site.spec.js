@@ -1,7 +1,20 @@
 import { test, expect } from '@playwright/test';
 import { isolateNetwork, oop, openSearch, readyResults, sp } from './helpers.js';
+import { learnifyCoursePages } from '../../.vitepress/theme/learnify-callout.js';
 
 const origin = 'https://recordings.finki-hub.com';
+
+async function expectCalloutAfterTitle(page) {
+  const isBetweenTitleAndFirstSection = await page.evaluate(() => {
+    const title = document.querySelector('.vp-doc h1');
+    const callout = document.querySelector('.custom-block a[href="https://learnify.mk"]')?.closest('.custom-block');
+    const firstSection = document.querySelector('.vp-doc h2');
+    return Boolean(title && callout &&
+      (title.compareDocumentPosition(callout) & Node.DOCUMENT_POSITION_FOLLOWING) &&
+      (!firstSection || (callout.compareDocumentPosition(firstSection) & Node.DOCUMENT_POSITION_FOLLOWING)));
+  });
+  expect(isBetweenTitleAndFirstSection).toBe(true);
+}
 
 test('built HTML has unique route-specific metadata and eligible Learnify markup without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
@@ -17,6 +30,14 @@ test('built HTML has unique route-specific metadata and eligible Learnify markup
       await expect(canonical).toHaveAttribute('href', origin + route);
       await expect(ogUrl).toHaveAttribute('content', origin + route);
       await expect(page.locator('.custom-block a[href="https://learnify.mk"]')).toHaveCount(callout ? 1 : 0);
+      if (callout) await expectCalloutAfterTitle(page);
+    }
+
+    for (const relativePath of learnifyCoursePages) {
+      const route = `/${relativePath.replace(/\.md$/, '.html')}`;
+      await page.goto(`http://127.0.0.1:4187${route}`);
+      await expect(page.locator('.custom-block a[href="https://learnify.mk"]')).toHaveCount(1);
+      await expectCalloutAfterTitle(page);
     }
   } finally {
     await context.close();
@@ -27,6 +48,7 @@ test('Learnify reacts to SPA routes and real search aliases target course headin
   await isolateNetwork(context);
   await page.goto(sp);
   await expect(page.locator('.custom-block a[href="https://learnify.mk"]')).toBeVisible();
+  await expectCalloutAfterTitle(page);
   // A marker distinguishes SPA navigation from a full document reload.
   await page.evaluate(() => { window.integrationNavigationMarker = true; });
   await page.locator('.VPNavBarMenu a[href="/introduction.html"]').click();
@@ -36,6 +58,7 @@ test('Learnify reacts to SPA routes and real search aliases target course headin
   await page.locator(`.VPSidebar a[href="${oop}"]`).click();
   await expect(page).toHaveURL(/objektno-orientirano-programiranje\.html$/);
   await expect(page.locator('.custom-block a[href="https://learnify.mk"]')).toBeVisible();
+  await expectCalloutAfterTitle(page);
 
   const aliases = [
     ['oop', oop, 'Објектно-ориентирано програмирање'],

@@ -1,3 +1,5 @@
+import { shouldShowLearnifyCallout } from './theme/learnify-callout.js';
+
 const productionOrigin = 'https://recordings.finki-hub.com';
 
 export function addFrontmatterKeywords(md) {
@@ -14,6 +16,20 @@ export function addFrontmatterKeywords(md) {
 
     const token = new state.Token('html_block', '', 0);
     token.content = `<div style="display:none">${keywords.join(' ')}</div>`;
+    state.tokens.splice(headingCloseIndex + 1, 0, token);
+    return true;
+  });
+
+  md.core.ruler.push('learnify-callout-after-title', (state) => {
+    if (!shouldShowLearnifyCallout(state.env?.relativePath)) return true;
+
+    const headingCloseIndex = state.tokens.findIndex(
+      (token) => token.type === 'heading_close' && token.tag === 'h1',
+    );
+    if (headingCloseIndex === -1) return true;
+
+    const token = new state.Token('html_block', '', 0);
+    token.content = '<LearnifyCourseCallout />\n';
     state.tokens.splice(headingCloseIndex + 1, 0, token);
     return true;
   });
