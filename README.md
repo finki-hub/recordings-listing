@@ -12,7 +12,7 @@ A VitePress-powered website that aggregates links to lecture and exercise record
 
 ## Prerequisites
 
-- Node.js 20+ (LTS recommended)
+- Node.js 24 or newer (LTS recommended)
 
 ## Setup
 

@@ -11,12 +11,12 @@
   --vp-font-family-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* ── Brand / Accent — green from landing page ─────────── */
-/* Primary: HSL(142, 70%, 45%) ≈ #22c35d                  */
+/* ── Brand / Accent ────────────────────────────────────── */
 :root {
-  --vp-c-brand-1: #22c35d;
-  --vp-c-brand-2: #1eab51;
-  --vp-c-brand-3: #1a9445;
+  --favorite-star-active: #a16207;
+  --vp-c-brand-1: #166534;
+  --vp-c-brand-2: #14532d;
+  --vp-c-brand-3: #064e3b;
   --vp-c-brand-soft: rgba(34, 195, 93, 0.14);
 
   /* tip / custom-block accent */
@@ -27,9 +27,10 @@
 }
 
 .dark {
-  --vp-c-brand-1: #22c35d;
-  --vp-c-brand-2: #1eab51;
-  --vp-c-brand-3: #1a9445;
+  --favorite-star-active: #facc15;
+  --vp-c-brand-1: #4ade80;
+  --vp-c-brand-2: #86efac;
+  --vp-c-brand-3: #bbf7d0;
   --vp-c-brand-soft: rgba(34, 195, 93, 0.14);
 
   --vp-c-tip-1: var(--vp-c-brand-1);
@@ -55,13 +56,13 @@
 
 /* ── Button overrides ─────────────────────────────────── */
 :root {
-  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-bg: #15803d;
   --vp-button-brand-border: transparent;
   --vp-button-brand-text: #fff;
-  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-hover-bg: #166534;
   --vp-button-brand-hover-border: transparent;
   --vp-button-brand-hover-text: #fff;
-  --vp-button-brand-active-bg: var(--vp-c-brand-3);
+  --vp-button-brand-active-bg: #14532d;
   --vp-button-brand-active-border: transparent;
   --vp-button-brand-active-text: #fff;
 }

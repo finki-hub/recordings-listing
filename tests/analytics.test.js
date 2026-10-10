@@ -267,6 +267,8 @@ test('installed SDK wire excludes private inputs, including persisted defaults a
   await sdk.metrics.flush();
   sdk.reloadFeatureFlags();
   capture('result_clicked_v2', { search_id: attempt, result_count: 2, position: 1, search_pending: false, result_id: PRIVATE });
+  capture('search_results_updated_v2', { search_id: attempt, result_count: 5 });
+  capture('search_zero_results_v2', { search_id: attempt, result_count: 0 });
   time.tick(5000);
   await Promise.resolve();
   await Promise.resolve();
@@ -286,7 +288,14 @@ test('installed SDK wire excludes private inputs, including persisted defaults a
     const wire = request.url + JSON.stringify(payload);
     for (const sentinel of [PRIVATE, encoded, 'example.test', 'utm_source', '$set', 'result_id', 'app_revision']) assert.ok(!wire.includes(sentinel), `unexpected ${sentinel}`);
   }
-  assert.deepEqual(events.map((e) => e.event), ['catalog_search_v2', 'result_clicked_v2'], JSON.stringify(events));
+  assert.deepEqual(events.map((e) => e.event), [
+    'catalog_search_v2', 'result_clicked_v2', 'search_results_updated_v2', 'search_zero_results_v2',
+  ], JSON.stringify(events));
+  assert.deepEqual(events.map((event) => event.properties.result_count), [2, 2, 5, 0]);
+  assert.equal(events[1].properties.position, 1);
+  assert.equal(events[1].properties.search_pending, false);
+  assert.equal('position' in events[0].properties, false);
+  assert.equal('search_pending' in events[0].properties, false);
   for (const event of events) {
     assert.equal(event.properties.search_id, attempt);
     assert.equal(event.properties.token, key);
@@ -348,14 +357,20 @@ test('DOM observer preserves inputs/navigation and disposes listeners when modal
     const input = { ...listeners(), value };
     const result = { href: `/${encoded}`, closest: () => result };
     const list = { getAttribute: () => 'false', querySelector: () => null };
-    const box = { ...listeners(), querySelector: (selector) => selector === 'input' ? input : selector === 'ul.results' ? list : result, querySelectorAll: () => [result] };
+    const box = {
+      ...listeners(),
+      querySelector: (selector) => selector === 'input' ? input : selector === 'ul.results' ? list : selector === '.result.selected' ? result : null,
+      querySelectorAll: (selector) => selector === '.result' ? [result] : [],
+    };
     return { box, input, result };
   }
   const first = modal(PRIVATE);
   activeBox = first.box;
   const events = [];
   let disconnected = false;
-  const dispose = attachSearchAnalytics((...args) => events.push(args), { body: {}, querySelector: () => activeBox }, class {
+  const dispose = attachSearchAnalytics((...args) => events.push(args), {
+    body: {}, querySelector: (selector) => selector === '.VPLocalSearchBox' ? activeBox : null,
+  }, class {
     constructor(fn) { changed = fn; } observe() {} disconnect() { disconnected = true; }
   });
   t.mock.timers.tick(500);
@@ -404,14 +419,16 @@ function readinessFixture(t) {
     const list = { getAttribute: (name) => name === 'aria-busy' ? String(state.busy) : null, querySelector: (selector) => selector === '.no-results' && state.empty ? {} : null };
     const box = {
       querySelector: (selector) => selector === 'input' ? input : selector === 'ul.results' ? list : null,
-      querySelectorAll: () => Array.from({ length: state.count }, () => result),
+      querySelectorAll: (selector) => selector === '.result' ? Array.from({ length: state.count }, () => result) : [],
       addEventListener: (name, fn) => boxHandlers.set(name, fn), removeEventListener: (name) => boxHandlers.delete(name),
     };
     return { input, list, box, state, handlers, boxHandlers, result };
   };
   const first = modal(PRIVATE);
   active = first;
-  const dispose = attachSearchAnalytics((event, properties) => events.push({ event, properties }), { body: {}, querySelector: () => active?.box }, class {
+  const dispose = attachSearchAnalytics((event, properties) => events.push({ event, properties }), {
+    body: {}, querySelector: (selector) => selector === '.VPLocalSearchBox' ? active?.box : null,
+  }, class {
     constructor(fn) { callback = fn; }
     observe(_target, config) { options = config; }
     disconnect() { disconnected = true; }
