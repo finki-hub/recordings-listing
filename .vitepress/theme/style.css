@@ -54,14 +54,17 @@
 
 /* ── Favorites section ── */
 #favorites-section {
-  padding-bottom: 12px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid var(--vp-c-divider);
+  --favorites-surface: color-mix(in srgb, var(--vp-c-brand-soft) 30%, var(--vp-c-bg));
+  padding: 8px 8px 12px;
+  margin: 0 0 12px -8px;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 22%, var(--vp-c-divider));
+  border-radius: 12px;
+  background: var(--favorites-surface);
 }
 
 @media (min-width: 960px) {
   #favorites-section {
-    width: calc(var(--vp-sidebar-width) - 64px);
+    width: calc(var(--vp-sidebar-width) - 48px);
   }
 }
 
@@ -69,8 +72,73 @@
   display: flex;
   align-items: center;
   cursor: default;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  min-height: 40px;
+  padding: 0 4px 7px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 18%, var(--vp-c-divider));
+}
+
+#favorites-section > .item .text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--vp-c-text-1);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+#favorites-section > .item .text::before {
+  content: '★';
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 7px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  font-size: 12px;
+}
+
+#favorites-section .favorites-count {
+  display: inline-grid;
+  min-width: 24px;
+  height: 24px;
+  margin-left: auto;
+  padding: 0 6px;
+  place-items: center;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+#favorites-section .VPSidebarItem .item {
+  border-radius: 8px;
+  transition: background-color 160ms ease;
+}
+
+#favorites-section .VPSidebarItem .item:hover {
+  background: var(--vp-c-bg-soft);
+}
+
+#favorites-section .VPSidebarItem .link {
+  min-height: 40px;
+  padding-left: 8px;
+  color: var(--vp-c-text-1);
+  font-size: 13px;
+}
+
+#favorites-section .favorite-star {
+  color: var(--vp-c-brand-1);
+}
+
+#favorites-section .favorite-star:hover {
+  color: var(--vp-c-red-1);
+  background: var(--vp-c-red-soft);
 }
 
 /* Hide the active indicator for pinned items (they're duplicates) */
@@ -85,7 +153,14 @@
 }
 
 #favorites-section .items .VPSidebarItem {
-  padding-bottom: 0;
+  padding-bottom: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #favorites-section .VPSidebarItem .item,
+  .favorite-star {
+    transition: none;
+  }
 }
 
 #favorites-section .items .items {

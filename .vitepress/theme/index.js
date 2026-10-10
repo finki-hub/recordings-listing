@@ -4,6 +4,7 @@ import { h } from 'vue';
 import LearnifyCourseCallout from './components/LearnifyCourseCallout.vue';
 import { useFavorites } from './composables/useFavorites';
 import { captureFavoritesFocus, restoreFavoritesFocus } from './favorites-focus.js';
+import { needsFavoritesSidebarReconciliation } from './favorites-sidebar.js';
 import { initAnalytics } from './analytics.js';
 import { attachSearchAnalytics } from './search-analytics.js';
 import './custom.css';
@@ -46,6 +47,43 @@ export default {
         if (link) toggleFavorite(link);
       };
 
+      const isEligibleFavoriteLink = (anchor) => {
+        const href = anchor.getAttribute('href');
+        return Boolean(href && href !== '#' &&
+          !href.includes('/introduction') && !href.includes('/index') && href !== '/');
+      };
+      let isHydrated = false;
+      let lastFocusedFavorite = null;
+      const rememberFavoriteFocus = (event) => {
+        const target = event.target;
+        const favoriteButton = target.closest?.('button.favorite-star');
+        const favoriteLink = target.closest?.('#favorites-section a[href]');
+        if (favoriteButton?.dataset.favoriteLink) {
+          lastFocusedFavorite = { link: favoriteButton.dataset.favoriteLink, control: 'favorite' };
+        } else if (favoriteLink) {
+          lastFocusedFavorite = { link: favoriteLink.getAttribute('href'), control: 'link' };
+        }
+      };
+      const needsSidebarReconciliation = () => {
+        const links = [...document.querySelectorAll('.VPSidebarItem a[href]')]
+          .filter((anchor) => !anchor.closest('#favorites-section') && isEligibleFavoriteLink(anchor));
+        if (!links.length) return false;
+
+        const reconciliationLinks = links.map((anchor) => {
+          const href = anchor.getAttribute('href');
+          const item = anchor.closest('.item');
+          const hasButton = item && [...item.querySelectorAll('.favorite-star')]
+            .some((button) => button.dataset.favoriteLink === href);
+          return { href, hasButton };
+        });
+        const hasFavorites = links.some((anchor) => isFavorite(anchor.getAttribute('href')));
+        return needsFavoritesSidebarReconciliation(
+          reconciliationLinks,
+          hasFavorites,
+          Boolean(document.querySelector('#favorites-section')),
+        );
+      };
+
       const injectStarsAndFavorites = () => {
         const sidebarLinks = document.querySelectorAll('.VPSidebarItem a[href]');
         if (sidebarLinks.length === 0) {
@@ -54,8 +92,7 @@ export default {
 
         sidebarLinks.forEach((anchor) => {
           const href = anchor.getAttribute('href');
-          if (!href || href === '#' || href === '' ||
-              href.includes('/introduction') || href.includes('/index') || href === '/') {
+          if (!isEligibleFavoriteLink(anchor)) {
             return;
           }
 
@@ -81,6 +118,7 @@ export default {
       };
 
       const updateAllStarsAndFavorites = () => {
+        if (!isHydrated) return;
         document.querySelectorAll('.favorite-star').forEach((star) => {
           const link = star.dataset.favoriteLink;
           if (link) applyFavoriteState(star, link);
@@ -91,7 +129,8 @@ export default {
 
       const createFavoritesSection = () => {
         const existingSection = document.querySelector('#favorites-section');
-        const savedFocus = captureFavoritesFocus(existingSection, document.activeElement);
+        const savedFocus = captureFavoritesFocus(existingSection, document.activeElement) ??
+          (document.activeElement === document.body ? lastFocusedFavorite : null);
         if (existingSection) {
           existingSection.remove();
         }
@@ -150,10 +189,15 @@ export default {
 
         const headerText = document.createElement('p');
         headerText.className = 'text';
-        headerText.textContent = '⭐ Омилени';
+        headerText.textContent = 'Омилени';
+
+        const favoriteCount = document.createElement('span');
+        favoriteCount.className = 'favorites-count';
+        favoriteCount.textContent = String(favoriteLinks.length);
 
         header.appendChild(indicator);
         header.appendChild(headerText);
+        header.appendChild(favoriteCount);
 
         const itemsContainer = document.createElement('div');
         itemsContainer.className = 'items';
@@ -181,39 +225,49 @@ export default {
       };
 
       const unsubscribeFavorites = subscribe(updateAllStarsAndFavorites);
+      let reconciliationScheduled = false;
+      let sidebarObserver;
+      const reconcileAfterSidebarUpdate = () => {
+        reconciliationScheduled = false;
+        if (isHydrated && needsSidebarReconciliation()) injectStarsAndFavorites();
+      };
+      const initializeSidebarEnhancements = () => {
+        if (isHydrated) return;
+        isHydrated = true;
+
+        document.addEventListener('focusin', rememberFavoriteFocus, true);
+        sidebarObserver = new MutationObserver(() => {
+          if (reconciliationScheduled) return;
+          reconciliationScheduled = true;
+          requestAnimationFrame(reconcileAfterSidebarUpdate);
+        });
+        const appRoot = document.getElementById('app');
+        if (appRoot) sidebarObserver.observe(appRoot, { childList: true, subtree: true });
+
+        injectStarsAndFavorites();
+      };
+
+      // Vue calls mounted on the root only after initial SSR hydration has finished.
+      app.mixin({
+        mounted() {
+          if (this === this.$root) initializeSidebarEnhancements();
+        },
+      });
+
       app.onUnmount(() => {
         unsubscribeFavorites();
+        sidebarObserver?.disconnect();
+        if (isHydrated) document.removeEventListener('focusin', rememberFavoriteFocus, true);
         dispose();
       });
 
       const initWithRetry = () => {
-        if (!injectStarsAndFavorites()) {
-          const observer = new MutationObserver(() => {
-            if (injectStarsAndFavorites()) {
-              observer.disconnect();
-            }
-          });
-
-          const app = document.getElementById('app');
-          if (app) {
-            observer.observe(app, { childList: true, subtree: true });
-          }
-
-          setTimeout(() => {
-            observer.disconnect();
-          }, 5000);
-        }
+        injectStarsAndFavorites();
       };
 
       router.onAfterRouteChange = () => {
-        setTimeout(initWithRetry, 50);
+        if (isHydrated) setTimeout(initWithRetry, 50);
       };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initWithRetry);
-      } else {
-        setTimeout(initWithRetry, 0);
-      }
     }
   },
 };
