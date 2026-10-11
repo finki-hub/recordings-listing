@@ -27,10 +27,25 @@ export default {
         app.onUnmount(disposeAnalytics);
       }
 
+      const createFavoriteStarIcon = () => {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('class', 'favorite-star-icon');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('focusable', 'false');
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M12 3.5 14.6 8.8l5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.8L12 3.5Z');
+        svg.appendChild(path);
+        return svg;
+      };
+
       const applyFavoriteState = (button, link) => {
         const active = isFavorite(link);
+        if (!button.querySelector('.favorite-star-icon')) {
+          button.appendChild(createFavoriteStarIcon());
+        }
         button.classList.toggle('active', active);
-        button.textContent = active ? '★' : '☆';
         button.setAttribute('aria-label', active ? 'Отстрани од омилени' : 'Додади во омилени');
         button.setAttribute('title', active ? 'Отстрани од омилени' : 'Додади во омилени');
         button.setAttribute('aria-pressed', String(active));
