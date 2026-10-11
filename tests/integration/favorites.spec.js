@@ -1,20 +1,37 @@
 import { test, expect } from '@playwright/test';
 import { collectErrors, favoriteStar, isolateNetwork, math, openMobileMenu, originalStar, sp } from './helpers.js';
 
+async function captureThemeEvidence(page, name) {
+  const directory = process.env.FAVORITES_SCREENSHOT_DIR;
+  if (directory) await page.screenshot({ path: `${directory}/${name}.png` });
+}
+
 async function expectStarIcon(button, selected) {
   await expect(button).toHaveAttribute('aria-pressed', String(selected));
   await expect(button.locator('svg.favorite-star-icon')).toHaveCount(1);
   await expect(button.locator('svg.favorite-star-icon')).toHaveAttribute('aria-hidden', 'true');
-  const iconState = await button.locator('svg.favorite-star-icon path').evaluate((path) => ({
-    fill: getComputedStyle(path).fill,
-    stroke: getComputedStyle(path).stroke,
-    buttonColor: getComputedStyle(path.closest('button')).color,
-  }));
-  expect(iconState.fill === 'none').toBe(!selected);
-  expect(iconState.stroke).toBe(iconState.buttonColor);
+  const iconPath = button.locator('svg.favorite-star-icon path');
+  await expect.poll(() => iconPath.evaluate((path, isSelected) => {
+    const style = getComputedStyle(path);
+    const buttonColor = getComputedStyle(path.closest('button')).color;
+    return style.stroke === buttonColor &&
+      (isSelected ? style.fill === buttonColor : style.fill === 'none');
+  }, selected)).toBe(true);
   const bounds = await button.boundingBox();
   expect(bounds.width).toBe(44);
   expect(bounds.height).toBe(44);
+}
+
+async function expectBrandColor(control) {
+  await expect.poll(() => control.evaluate((element) => {
+    const actual = getComputedStyle(element).color;
+    const probe = document.createElement('span');
+    probe.style.color = 'var(--vp-c-brand-1)';
+    document.body.appendChild(probe);
+    const brand = getComputedStyle(probe).color;
+    probe.remove();
+    return actual === brand;
+  })).toBe(true);
 }
 
 test('hydrated favorites survive keyboard toggles, mobile navigation, reload and cross-tab updates', async ({ page, context }) => {
@@ -35,6 +52,12 @@ test('hydrated favorites survive keyboard toggles, mobile navigation, reload and
   await expectStarIcon(originalStar(page, sp), true);
   await expect(favoriteStar(page, sp)).toHaveCount(1);
   await expectStarIcon(favoriteStar(page, sp), true);
+  await expectBrandColor(originalStar(page, sp));
+  await expectBrandColor(favoriteStar(page, sp));
+  const headingIcon = page.locator('#favorites-section .favorites-heading-icon');
+  await expect(headingIcon).toHaveAttribute('aria-hidden', 'true');
+  await expectBrandColor(headingIcon);
+  await captureThemeEvidence(page, 'favorites-desktop-light');
   await expect(originalStar(page, math)).toHaveAttribute('aria-label', 'Додади во омилени');
   await expectStarIcon(originalStar(page, math), false);
   await expect(page.locator('#favorites-section .favorites-count')).toHaveText('1');
@@ -45,10 +68,16 @@ test('hydrated favorites survive keyboard toggles, mobile navigation, reload and
   }
   await expect(page.locator('html')).not.toHaveClass(/dark/);
   await expectStarIcon(originalStar(page, sp), true);
+  await expectBrandColor(originalStar(page, sp));
+  await expectBrandColor(favoriteStar(page, sp));
   await appearance.click();
   await expect(page.locator('html')).toHaveClass(/dark/);
   await expectStarIcon(originalStar(page, sp), true);
   await expectStarIcon(originalStar(page, math), false);
+  await expectBrandColor(originalStar(page, sp));
+  await expectBrandColor(favoriteStar(page, sp));
+  await expectBrandColor(headingIcon);
+  await captureThemeEvidence(page, 'favorites-desktop-dark');
   await appearance.click();
   await expect(page.locator('html')).not.toHaveClass(/dark/);
 
@@ -63,6 +92,7 @@ test('hydrated favorites survive keyboard toggles, mobile navigation, reload and
 
   await page.setViewportSize({ width: 390, height: 844 });
   await openMobileMenu(page);
+  await captureThemeEvidence(page, 'favorites-mobile-light');
   await page.locator(`#favorites-section a[href="${sp}"]`).click();
   await expect(page).toHaveURL(new RegExp(sp.replaceAll('.', '\\.') + '$'));
   await expect(page.locator('.vp-doc h1')).toContainText('Структурно програмирање');

@@ -202,11 +202,17 @@ export default {
         headerText.className = 'text';
         headerText.textContent = 'Омилени';
 
+        const headingIcon = document.createElement('span');
+        headingIcon.className = 'favorites-heading-icon';
+        headingIcon.setAttribute('aria-hidden', 'true');
+        headingIcon.appendChild(createFavoriteStarIcon());
+
         const favoriteCount = document.createElement('span');
         favoriteCount.className = 'favorites-count';
         favoriteCount.textContent = String(favoriteLinks.length);
 
         header.appendChild(indicator);
+        header.appendChild(headingIcon);
         header.appendChild(headerText);
         header.appendChild(favoriteCount);
 
