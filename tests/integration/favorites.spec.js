@@ -1,6 +1,22 @@
 import { test, expect } from '@playwright/test';
 import { collectErrors, favoriteStar, isolateNetwork, math, openMobileMenu, originalStar, sp } from './helpers.js';
 
+async function expectStarIcon(button, selected) {
+  await expect(button).toHaveAttribute('aria-pressed', String(selected));
+  await expect(button.locator('svg.favorite-star-icon')).toHaveCount(1);
+  await expect(button.locator('svg.favorite-star-icon')).toHaveAttribute('aria-hidden', 'true');
+  const iconState = await button.locator('svg.favorite-star-icon path').evaluate((path) => ({
+    fill: getComputedStyle(path).fill,
+    stroke: getComputedStyle(path).stroke,
+    buttonColor: getComputedStyle(path.closest('button')).color,
+  }));
+  expect(iconState.fill === 'none').toBe(!selected);
+  expect(iconState.stroke).toBe(iconState.buttonColor);
+  const bounds = await button.boundingBox();
+  expect(bounds.width).toBe(44);
+  expect(bounds.height).toBe(44);
+}
+
 test('hydrated favorites survive keyboard toggles, mobile navigation, reload and cross-tab updates', async ({ page, context }) => {
   await isolateNetwork(context);
   // Seed before hydration, but only once: subsequent reload must read the real
@@ -15,12 +31,31 @@ test('hydrated favorites survive keyboard toggles, mobile navigation, reload and
   await page.goto(math);
   await expect(originalStar(page, sp)).toHaveCount(1);
   await expect(originalStar(page, sp)).toHaveAttribute('aria-pressed', 'true');
+  await expect(originalStar(page, sp)).toHaveAttribute('aria-label', 'Отстрани од омилени');
+  await expectStarIcon(originalStar(page, sp), true);
   await expect(favoriteStar(page, sp)).toHaveCount(1);
+  await expectStarIcon(favoriteStar(page, sp), true);
+  await expect(originalStar(page, math)).toHaveAttribute('aria-label', 'Додади во омилени');
+  await expectStarIcon(originalStar(page, math), false);
   await expect(page.locator('#favorites-section .favorites-count')).toHaveText('1');
+
+  const appearance = page.locator('.VPSwitchAppearance');
+  if (await page.locator('html').evaluate((html) => html.classList.contains('dark'))) {
+    await appearance.click();
+  }
+  await expect(page.locator('html')).not.toHaveClass(/dark/);
+  await expectStarIcon(originalStar(page, sp), true);
+  await appearance.click();
+  await expect(page.locator('html')).toHaveClass(/dark/);
+  await expectStarIcon(originalStar(page, sp), true);
+  await expectStarIcon(originalStar(page, math), false);
+  await appearance.click();
+  await expect(page.locator('html')).not.toHaveClass(/dark/);
 
   await originalStar(page, math).focus();
   await page.keyboard.press('Enter');
   await expect(originalStar(page, math)).toHaveAttribute('aria-pressed', 'true');
+  await expectStarIcon(originalStar(page, math), true);
   await expect(page.locator('#favorites-section .favorites-count')).toHaveText('2');
   await page.keyboard.press('Space');
   await expect(originalStar(page, math)).toHaveAttribute('aria-pressed', 'false');

@@ -34,6 +34,27 @@
   transition: color 0.2s, background-color 0.2s, transform 0.2s;
 }
 
+.favorite-star-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.favorite-star-icon path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 160ms ease;
+}
+
+.favorite-star.active .favorite-star-icon path {
+  fill: currentColor;
+}
+
 .favorite-star:hover {
   color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-soft);
@@ -158,7 +179,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   #favorites-section .VPSidebarItem .item,
-  .favorite-star {
+  .favorite-star,
+  .favorite-star-icon path {
     transition: none;
   }
 }
