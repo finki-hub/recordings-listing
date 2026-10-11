@@ -34,6 +34,15 @@ async function expectBrandColor(control) {
   })).toBe(true);
 }
 
+async function expectFavoritesHeadingGap(page) {
+  const icon = page.locator('#favorites-section > .item .favorites-heading-icon');
+  const label = page.locator('#favorites-section > .item .text');
+  await expect.poll(async () => {
+    const [iconBox, labelBox] = await Promise.all([icon.boundingBox(), label.boundingBox()]);
+    return iconBox && labelBox ? labelBox.x - iconBox.x - iconBox.width : -1;
+  }).toBeGreaterThanOrEqual(8);
+}
+
 test('hydrated favorites survive keyboard toggles, mobile navigation, reload and cross-tab updates', async ({ page, context }) => {
   await isolateNetwork(context);
   // Seed before hydration, but only once: subsequent reload must read the real
@@ -57,6 +66,7 @@ test('hydrated favorites survive keyboard toggles, mobile navigation, reload and
   const headingIcon = page.locator('#favorites-section .favorites-heading-icon');
   await expect(headingIcon).toHaveAttribute('aria-hidden', 'true');
   await expectBrandColor(headingIcon);
+  await expectFavoritesHeadingGap(page);
   await captureThemeEvidence(page, 'favorites-desktop-light');
   await expect(originalStar(page, math)).toHaveAttribute('aria-label', 'Додади во омилени');
   await expectStarIcon(originalStar(page, math), false);
@@ -77,6 +87,7 @@ test('hydrated favorites survive keyboard toggles, mobile navigation, reload and
   await expectBrandColor(originalStar(page, sp));
   await expectBrandColor(favoriteStar(page, sp));
   await expectBrandColor(headingIcon);
+  await expectFavoritesHeadingGap(page);
   await captureThemeEvidence(page, 'favorites-desktop-dark');
   await appearance.click();
   await expect(page.locator('html')).not.toHaveClass(/dark/);
@@ -92,6 +103,7 @@ test('hydrated favorites survive keyboard toggles, mobile navigation, reload and
 
   await page.setViewportSize({ width: 390, height: 844 });
   await openMobileMenu(page);
+  await expectFavoritesHeadingGap(page);
   await captureThemeEvidence(page, 'favorites-mobile-light');
   await page.locator(`#favorites-section a[href="${sp}"]`).click();
   await expect(page).toHaveURL(new RegExp(sp.replaceAll('.', '\\.') + '$'));
@@ -128,4 +140,12 @@ test('hydrated favorites survive keyboard toggles, mobile navigation, reload and
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('favorites')))).toEqual([sp]);
   expect(errors).toEqual([]);
   expect(secondErrors).toEqual([]);
+
+  const secondAppearance = second.locator('.VPSwitchAppearance');
+  await secondAppearance.click();
+  await expect(second.locator('html')).toHaveClass(/dark/);
+  await second.setViewportSize({ width: 390, height: 844 });
+  await openMobileMenu(second);
+  await expectFavoritesHeadingGap(second);
+  await captureThemeEvidence(second, 'favorites-mobile-dark');
 });

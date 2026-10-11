@@ -114,6 +114,7 @@
   flex: 0 0 24px;
   width: 24px;
   height: 24px;
+  margin-right: 8px;
   place-items: center;
   border-radius: 7px;
   background: var(--vp-c-brand-soft);
