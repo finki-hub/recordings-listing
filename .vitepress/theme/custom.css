@@ -13,7 +13,6 @@
 
 /* ── Brand / Accent ────────────────────────────────────── */
 :root {
-  --favorite-star-active: #a16207;
   --vp-c-brand-1: #166534;
   --vp-c-brand-2: #14532d;
   --vp-c-brand-3: #064e3b;
@@ -27,7 +26,6 @@
 }
 
 .dark {
-  --favorite-star-active: #facc15;
   --vp-c-brand-1: #4ade80;
   --vp-c-brand-2: #86efac;
   --vp-c-brand-3: #bbf7d0;
