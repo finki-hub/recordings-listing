@@ -106,6 +106,34 @@ export default defineConfig({
 });
 ```
 
+## Localization
+
+The site supports Macedonian (the default), English, Albanian and Turkish.
+Existing Macedonian URLs remain valid; the additional languages use `/en/`,
+`/sq/` and `/tr/`. The header dropdown uses the same language names and visual
+conventions as the other FINKI Hub sites, and saves preferences under
+`finki-hub-lang`. An explicit localized URL selects that language; an unprefixed
+page restores a saved preference after hydration. Blocked local storage leaves
+route-based switching available.
+
+Translations live in `.vitepress/locales/`; the Macedonian dictionary defines
+the shared TypeScript shape in `.vitepress/i18n.ts`. New course pages still belong
+in `courses/` and need to be maintained only once. The `[locale]/[page]` route
+loader generates the additional language versions in development and production.
+It translates recognized structural headings, standard notes, the homepage and
+introduction while preserving original recording link labels and destinations,
+course names, lecturer names, recording titles, search aliases and section IDs.
+Site navigation links point to the corresponding localized pages.
+
+Favorites retain their existing language-neutral course URLs in storage.
+Language changes keep the current page, query and section. Local search uses
+the selected language index and keeps the original course names and aliases.
+
+Validate localization with `npm run check`, `npm test`, `npm run lint:md`,
+`npm run docs:build` and `npm run test:integration`. The tests compare links and
+anchors across every generated course page and exercise favorites, search,
+metadata without JavaScript, language persistence and keyboard navigation.
+
 ## License
 
 This project is licensed under the terms of the MIT license.
