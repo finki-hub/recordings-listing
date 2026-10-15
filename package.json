@@ -1,9 +1,12 @@
 {
   "devDependencies": {
     "@playwright/test": "1.64.0",
+    "@types/node": "^26.6.5",
     "markdownlint-cli": "^0.49.1",
+    "typescript": "^6.0.3",
     "vitepress": "^2.0.0-alpha.20",
-    "vitepress-sidebar": "^1.40.0"
+    "vitepress-sidebar": "^1.40.0",
+    "vue-tsc": "^3.3.13"
   },
   "license": "MIT",
   "name": "finki-hub-recordings-listing",
@@ -19,11 +22,16 @@
     "docs:dev": "vitepress dev",
     "docs:preview": "vitepress preview",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist",
-    "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist --fix"
+    "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist --fix",
+    "check": "vue-tsc --noEmit"
   },
   "type": "module",
   "version": "0.0.0",
   "dependencies": {
-    "posthog-js": "^1.438.9"
+    "@lucide/vue": "^1.57.0",
+    "@mdit-vue/shared": "^3.0.2",
+    "posthog-js": "^1.438.9",
+    "reka-ui": "^2.11.0",
+    "vue": "^3.5.44"
   }
 }

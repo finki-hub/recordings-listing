@@ -1,3 +1,5 @@
+import Layout from './Layout.vue';
+import { languageFromPath, languageLocales, stripLanguagePrefix, translations } from '../i18n.ts';
 import { posthog } from 'posthog-js';
 import DefaultTheme from 'vitepress/theme';
 import LearnifyCourseCallout from './components/LearnifyCourseCallout.vue';
@@ -15,11 +17,16 @@ const POSTHOG_HOST =
 
 export default {
   extends: DefaultTheme,
+  Layout,
   enhanceApp({ app, router }) {
     app.component('LearnifyCourseCallout', LearnifyCourseCallout);
 
     if (typeof window !== 'undefined') {
-      const { isFavorite, toggleFavorite, subscribe, dispose } = useFavorites();
+      const { isFavorite: isSavedFavorite, toggleFavorite: toggleSavedFavorite, subscribe, dispose } = useFavorites();
+      const isFavorite = (link) => isSavedFavorite(stripLanguagePrefix(link));
+      const toggleFavorite = (link) => toggleSavedFavorite(stripLanguagePrefix(link));
+      const currentLanguage = () => languageFromPath(router.route.path);
+      const currentCopy = () => translations[currentLanguage()];
 
       if (POSTHOG_KEY) {
         const capture = initAnalytics(posthog, POSTHOG_KEY, POSTHOG_HOST);
@@ -46,8 +53,8 @@ export default {
           button.appendChild(createFavoriteStarIcon());
         }
         button.classList.toggle('active', active);
-        button.setAttribute('aria-label', active ? 'Отстрани од омилени' : 'Додади во омилени');
-        button.setAttribute('title', active ? 'Отстрани од омилени' : 'Додади во омилени');
+        button.setAttribute('aria-label', active ? currentCopy().favorites.remove : currentCopy().favorites.add);
+        button.setAttribute('title', active ? currentCopy().favorites.remove : currentCopy().favorites.add);
         button.setAttribute('aria-pressed', String(active));
       };
 
@@ -96,6 +103,7 @@ export default {
       };
 
       const injectStarsAndFavorites = () => {
+        document.getElementById('VPSidebarNav')?.setAttribute('aria-labelledby', 'localized-sidebar-label');
         const sidebarLinks = document.querySelectorAll('.VPSidebarItem a[href]');
         if (sidebarLinks.length === 0) {
           return false;
@@ -200,7 +208,7 @@ export default {
 
         const headerText = document.createElement('p');
         headerText.className = 'text';
-        headerText.textContent = 'Омилени';
+        headerText.textContent = currentCopy().favorites.title;
 
         const headingIcon = document.createElement('span');
         headingIcon.className = 'favorites-heading-icon';
@@ -209,7 +217,7 @@ export default {
 
         const favoriteCount = document.createElement('span');
         favoriteCount.className = 'favorites-count';
-        favoriteCount.textContent = String(favoriteLinks.length);
+        favoriteCount.textContent = new Intl.NumberFormat(languageLocales[currentLanguage()]).format(favoriteLinks.length);
 
         header.appendChild(indicator);
         header.appendChild(headingIcon);
@@ -279,6 +287,7 @@ export default {
       });
 
       const initWithRetry = () => {
+        updateAllStarsAndFavorites();
         injectStarsAndFavorites();
       };
 
