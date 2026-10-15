@@ -1,3 +1,5 @@
+import { stripLanguagePrefix } from '../i18n.ts';
+
 export const learnifyCalloutEnabled = true;
 
 export const learnifyCoursePages = new Set([
@@ -21,5 +23,5 @@ export const learnifyCoursePages = new Set([
 export function shouldShowLearnifyCallout(relativePath, enabled = learnifyCalloutEnabled) {
   if (!enabled || typeof relativePath !== 'string') return false;
   const normalizedPath = relativePath.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^\/+/, '');
-  return learnifyCoursePages.has(normalizedPath);
+  return learnifyCoursePages.has(stripLanguagePrefix(normalizedPath));
 }

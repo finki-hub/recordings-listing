@@ -14,7 +14,7 @@ const state = createFavoritesState({
   eventTarget: typeof window === 'undefined' ? undefined : window,
 })
 const favorites = ref(state.favorites)
-const unsubscribeState = state.subscribe((next) => { favorites.value = next })
+const unsubscribeState = state.subscribe((next: Set<string>) => { favorites.value = next })
 
 export function useFavorites() {
   const isFavorite = (link: string) => state.isFavorite(link)

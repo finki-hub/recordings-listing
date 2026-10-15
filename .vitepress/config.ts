@@ -1,28 +1,74 @@
-import { defineConfig, UserConfig } from "vitepress";
-import { withSidebar } from "vitepress-sidebar";
-import { resolveBuildRevision } from "./theme/analytics.js";
-import { addFrontmatterKeywords, pageHeadTags } from "./site-audit.js";
+import { defineConfig } from 'vitepress';
+import { generateSidebar } from 'vitepress-sidebar';
+import { resolveBuildRevision } from './theme/analytics.js';
+import { addFrontmatterKeywords, pageHeadTags } from './site-audit.js';
+import { renderSearchPage } from './localized-content.js';
+import { type Language, localizedPath, translations } from './i18n.ts';
 
-import type { VitePressSidebarOptions } from "vitepress-sidebar/types";
+const sidebar = generateSidebar({
+  excludeByGlobPattern: ['README.md', '\\[locale\\]/**'],
+  includeDynamicRoutes: false,
+  includeRootIndexFile: false,
+  manualSortFileNameByPriority: ['introduction.md'],
+  useFolderTitleFromIndexFile: true,
+  useTitleFromFileHeading: true,
+  useTitleFromFrontmatter: true,
+});
 
-const vitePressOptions: UserConfig = {
+function localizedSidebar(items, language: Language) {
+  const t = translations[language];
+  return items.map((item) => {
+    let text = item.text;
+    const semester = /^Семестар (\d+)$/u.exec(text ?? '');
+    if (text === translations.mk.courses) text = t.courses;
+    if (semester) text = t.semester.replace('{number}', semester[1]);
+    if (item.link === '/introduction') text = t.nav.introduction;
+    return {
+      ...item, text,
+      ...(item.link && { link: localizedPath(item.link, language) }),
+      ...(item.items && { items: localizedSidebar(item.items, language) }),
+    };
+  });
+}
+
+const localeConfig = (language: Language) => {
+  const t = translations[language];
+  return {
+    // The custom shared dropdown supplies labels instead of the default flyout.
+    label: '', lang: language, title: t.title, description: t.description,
+    themeConfig: {
+      ...t.theme,
+      mobileMenuLabel: t.theme.navMenuLabel,
+      langMenuLabel: t.language,
+      nav: [
+        { text: t.nav.home, link: localizedPath('/', language) },
+        { text: t.nav.introduction, link: localizedPath('/introduction', language) },
+      ],
+      sidebar: localizedSidebar(sidebar, language),
+      outline: { label: t.theme.outlineLabel },
+      footer: { message: t.footer },
+      notFound: {
+        title: t.theme.notFoundTitle, quote: t.theme.notFoundQuote,
+        linkLabel: t.theme.notFoundLinkLabel, linkText: t.theme.notFoundLinkText,
+      },
+    },
+  };
+};
+
+export default defineConfig({
   vite: {
     define: {
-      // GitHub's reusable Pages workflow inherits GITHUB_SHA at the build step.
       __APP_REVISION__: JSON.stringify(resolveBuildRevision(process.env)) ?? 'undefined',
     },
   },
-  lang: "mk",
-  title: "ФИНКИ Хаб / Снимки",
-  description: "Колекција од снимки од предмети на ФИНКИ",
-  transformHead({ pageData }) {
-    return pageHeadTags(pageData.relativePath);
+  lang: 'mk', title: translations.mk.title, description: translations.mk.description,
+  locales: { root: localeConfig('mk'), en: localeConfig('en'), sq: localeConfig('sq'), tr: localeConfig('tr') },
+  transformPageData(pageData) {
+    pageData.frontmatter.head ??= [];
+    pageData.frontmatter.head.push(...pageHeadTags(pageData.relativePath));
   },
-  // Exclude the repository README from being compiled as a page
-  srcExclude: ["README.md"],
-  markdown: {
-    config: addFrontmatterKeywords,
-  },
+  srcExclude: ['README.md'],
+  markdown: { config: addFrontmatterKeywords },
   head: [
     // Google Fonts (Inter + JetBrains Mono)
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
@@ -36,90 +82,23 @@ const vitePressOptions: UserConfig = {
     ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }],
     ['link', { rel: 'manifest', href: '/site.webmanifest' }],
 
-    // SEO
-    ['meta', { name: 'author', content: 'ФИНКИ Хаб' }],
     ['meta', { name: 'theme-color', content: '#0a0a0a' }],
-
-    // Open Graph
-    ['meta', { property: 'og:title', content: 'ФИНКИ Хаб / Снимки' }],
-    ['meta', { property: 'og:description', content: 'Колекција од снимки од предмети на ФИНКИ.' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:locale', content: 'mk_MK' }],
     ['meta', { property: 'og:image', content: 'https://recordings.finki-hub.com/favicon-96x96.png' }],
-
-    // Twitter
     ['meta', { name: 'twitter:card', content: 'summary' }],
-    ['meta', { name: 'twitter:title', content: 'ФИНКИ Хаб / Снимки' }],
-    ['meta', { name: 'twitter:description', content: 'Колекција од снимки од предмети на ФИНКИ.' }],
     ['meta', { name: 'twitter:image', content: 'https://recordings.finki-hub.com/favicon-96x96.png' }],
-
   ],
   themeConfig: {
-    nav: [
-      { text: "Дома", link: "/" },
-      { text: "Вовед", link: "/introduction" },
-    ],
     search: {
-      provider: "local",
+      provider: 'local',
       options: {
-        locales: {
-          root: {
-            translations: {
-              button: {
-                buttonText: "Пребарај",
-                buttonAriaLabel: "Пребарај",
-              },
-              modal: {
-                noResultsText: "Нема резултати",
-                resetButtonTitle: "Исчисти пребарување",
-                displayDetails: "Прикажи детали",
-                backButtonTitle: "Назад",
-                footer: {
-                  selectText: "избери",
-                  navigateText: "движи се",
-                  closeText: "затвори",
-                },
-              },
-            },
-          },
-        },
+        _render: renderSearchPage,
+        locales: Object.fromEntries(Object.entries(translations).map(([language, t]) => [
+          language === 'mk' ? 'root' : language, { translations: t.search },
+        ])),
       },
     },
-    socialLinks: [
-      {
-        icon: "github",
-        link: "https://github.com/finki-hub/recordings-listing",
-      },
-    ],
-    sidebarMenuLabel: "Мени",
-    returnToTopLabel: "Врати се на врвот",
-    darkModeSwitchLabel: "Тема",
-    lightModeSwitchTitle: "Светла тема",
-    darkModeSwitchTitle: "Темна тема",
-    skipToContentLabel: "Прескокни до содржина",
-    outline: {
-      label: "Содржина",
-    },
-    docFooter: {
-      prev: false,
-      next: false,
-    },
-    footer: {
-      message:
-        "Ова е неофицијална страница. Линковите до снимки се јавни; не поседуваме ниту хостираме снимки. Сите авторски права припаѓаат на ФИНКИ. ",
-    },
+    socialLinks: [{ icon: 'github', link: 'https://github.com/finki-hub/recordings-listing' }],
+    docFooter: { prev: false, next: false },
   },
-};
-
-const vitePressSidebarOptions: VitePressSidebarOptions = {
-  excludeByGlobPattern: ["README.md"],
-  includeRootIndexFile: false,
-  manualSortFileNameByPriority: ["introduction.md"],
-  useFolderTitleFromIndexFile: true,
-  useTitleFromFileHeading: true,
-  useTitleFromFrontmatter: true,
-};
-
-export default defineConfig(
-  withSidebar(vitePressOptions, vitePressSidebarOptions)
-);
+});
