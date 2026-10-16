@@ -50,6 +50,20 @@ npm run docs:preview
 
 ## Linting
 
+TypeScript and Vue code use `eslint-config-imperium`, with its shared base,
+browser, Node, TypeScript, Vue, Prettier and import-sorting configurations.
+
+```sh
+npm run check
+npm run lint
+npm run format
+```
+
+Strict type checking covers the theme, Vue components, VitePress and Playwright
+configuration, generated route loader, build helpers and tests. The compiler
+settings match the other FINKI Hub frontends, including unchecked indexed access,
+unused code and missing return checks. Builds run type checking first.
+
 Lint all Markdown files:
 
 ```cmd
@@ -63,6 +77,10 @@ npm run lint:md:fix
 ```
 
 Rules are configured in `.markdownlint.jsonc`. Build output and cache folders are ignored via `.markdownlintignore`.
+
+Run both code and Markdown linting with `npm run lint:all`. CI runs both linters
+and the type-checked production build. Unit and browser tests are written in
+TypeScript and run with `npm test` and `npm run test:integration`.
 
 ## Project Structure
 

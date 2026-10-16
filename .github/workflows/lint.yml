@@ -13,3 +13,5 @@ permissions:
 jobs:
   markdown-and-build:
     uses: finki-hub/.github/.github/workflows/docs-check.yaml@main
+    with:
+      lint-script: lint:all
