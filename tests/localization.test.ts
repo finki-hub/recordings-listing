@@ -2,6 +2,7 @@ import type Token from 'markdown-it/lib/token.mjs';
 
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import test from 'node:test';
 import { createMarkdownRenderer } from 'vitepress';
 
@@ -18,6 +19,7 @@ import {
   contentRoot,
   localizedPages,
   localizeMarkdown,
+  renderSearchPage,
   sourcePages,
 } from '../.vitepress/localized-content.ts';
 import { pageHeadTags } from '../.vitepress/site-audit.ts';
@@ -26,6 +28,7 @@ import { at } from './helpers.ts';
 
 const placeholderPattern = /\{\w+\}/gu;
 const htmlExtensionPattern = /\.html$/u;
+const courseSourcePath = 'courses/semester-1/strukturno-programiranje.md';
 
 const leaves = (value: object, prefix = ''): Array<[string, string]> =>
   (Object.entries(value) as Array<[string, unknown]>).flatMap(([key, item]) => {
@@ -111,6 +114,14 @@ test('all translated course and introduction pages preserve every source link an
   }
 });
 
+test('discovered source paths use forward slashes for route identity', () => {
+  const paths = sourcePages();
+  assert.ok(paths.includes(courseSourcePath));
+  for (const path of paths) {
+    assert.ok(!path.includes('\\'), `${path}: normalized source path`);
+  }
+});
+
 test('generation covers every source page in all three additional languages without copied content files', () => {
   const pages = localizedPages();
   const expected = sourcePages().flatMap((path) =>
@@ -122,6 +133,10 @@ test('generation covers every source page in all three additional languages with
   );
   assert.equal(new Set(expected).size, pages.length);
   for (const { content, params } of pages) {
+    assert.ok(
+      !params.page.includes('\\'),
+      `${params.locale}/${params.page}: normalized generated route`,
+    );
     if (params.page.endsWith('strukturno-programiranje')) {
       assert.ok(
         content.includes(
@@ -136,6 +151,58 @@ test('generation covers every source page in all three additional languages with
         content.includes(translations[params.locale].introduction.description),
       );
   }
+});
+
+test('empty localized search source renders translated canonical course content', async (t) => {
+  const renderer = await createMarkdownRenderer(contentRoot);
+  const render = t.mock.method(renderer, 'renderAsync');
+  const html = await renderSearchPage(
+    '',
+    {
+      cleanUrls: false,
+      path: resolve(contentRoot, 'en', courseSourcePath),
+      relativePath: `en/${courseSourcePath}`,
+    },
+    renderer,
+  );
+  assert.equal(render.mock.callCount(), 1);
+  const markdown = at(render.mock.calls, 0).arguments[0];
+  assert.ok(
+    markdown.includes(`## ${translations.en.sections.lectures} {#предавања}`),
+  );
+  assert.ok(html.includes(translations.en.sections.lectures));
+  assert.ok(html.includes('Структурно програмирање'));
+});
+
+test('search rendering skips unknown generated paths and pages opting out', async (t) => {
+  const renderer = await createMarkdownRenderer(contentRoot);
+  const render = t.mock.method(renderer, 'renderAsync');
+  assert.equal(
+    await renderSearchPage(
+      '',
+      {
+        cleanUrls: false,
+        path: resolve(contentRoot, 'en/courses/does-not-exist.md'),
+        relativePath: 'en/courses/does-not-exist.md',
+      },
+      renderer,
+    ),
+    '',
+  );
+  assert.equal(render.mock.callCount(), 0);
+  assert.equal(
+    await renderSearchPage(
+      '---\nsearch: false\n---\n# Hidden from search',
+      {
+        cleanUrls: false,
+        path: resolve(contentRoot, 'en', courseSourcePath),
+        relativePath: `en/${courseSourcePath}`,
+      },
+      renderer,
+    ),
+    '',
+  );
+  assert.equal(render.mock.callCount(), 1);
 });
 
 test('locale routes preserve the course identity, query and fragment without stacking prefixes', () => {

@@ -277,6 +277,68 @@ test('final allowlist reconstructs envelope and properties, validating safe scal
   }
 });
 
+test('production before_send accepts valid UUIDs and sanitizes the envelope', () => {
+  const { sdk } = sdkBrowser(true);
+  initAnalytics(sdk, key);
+  const beforeSend = sdk.config.before_send;
+  assert.ok(typeof beforeSend === 'function');
+  assert.deepEqual(
+    beforeSend({
+      event: 'catalog_search_v2',
+      properties: { query: PRIVATE, result_count: 2, search_id: attempt },
+      uuid: attempt,
+    }),
+    {
+      event: 'catalog_search_v2',
+      properties: {
+        $process_person_profile: false,
+        analytics_schema_version: 2,
+        result_count: 2,
+        search_id: attempt,
+        service: 'recordings-listing',
+        token: key,
+      },
+      uuid: attempt,
+    },
+  );
+});
+
+test('production before_send rejects missing and malformed UUIDs', () => {
+  const { sdk } = sdkBrowser(true);
+  initAnalytics(sdk, key);
+  const beforeSend = sdk.config.before_send;
+  assert.ok(typeof beforeSend === 'function');
+  const envelope = {
+    event: 'catalog_search_v2',
+    properties: { result_count: 2, search_id: attempt },
+    uuid: attempt,
+  };
+  // Simulate malformed SDK envelopes without weakening the callback's types.
+  Reflect.deleteProperty(envelope, 'uuid');
+  assert.equal(beforeSend(envelope), null, 'missing UUID is rejected');
+  for (const uuid of ['', PRIVATE, 'not-a-uuid']) {
+    Reflect.set(envelope, 'uuid', uuid);
+    assert.equal(beforeSend(envelope), null, 'malformed UUID is rejected');
+  }
+});
+
+test('production before_send rejects unknown events even with a valid UUID', () => {
+  const { sdk } = sdkBrowser(true);
+  initAnalytics(sdk, key);
+  const beforeSend = sdk.config.before_send;
+  assert.ok(typeof beforeSend === 'function');
+  for (const event of ['$pageview', 'catalog_search', 'unknown_event']) {
+    assert.equal(
+      beforeSend({
+        event,
+        properties: { query: PRIVATE, result_count: 2, search_id: attempt },
+        uuid: attempt,
+      }),
+      null,
+    );
+  }
+});
+
 test('installed SDK wire excludes private inputs, including persisted defaults and remote-enabled features', async () => {
   const { context, errors, listeners, requests, sdk, time } = sdkBrowser(true);
   let remoteConfigApplied = false;
@@ -299,7 +361,7 @@ test('installed SDK wire excludes private inputs, including persisted defaults a
       },
     },
   };
-  sdk.init(key, analyticsConfig(key));
+  initAnalytics(sdk, key);
   assert.equal(
     remoteConfigApplied,
     true,
@@ -454,9 +516,13 @@ test('installed SDK wire excludes private inputs, including persisted defaults a
 test('shipped bundle reaches transport, while an unsanitized control exposes sentinels', async () => {
   for (const sanitized of [false, true]) {
     const { requests, sdk, time } = sdkBrowser(true);
-    const config = analyticsConfig(key);
-    if (!sanitized) Reflect.deleteProperty(config, 'before_send');
-    sdk.init(key, config);
+    if (sanitized) {
+      initAnalytics(sdk, key);
+    } else {
+      const config = analyticsConfig(key);
+      Reflect.deleteProperty(config, 'before_send');
+      sdk.init(key, config);
+    }
     sdk.capture('catalog_search_v2', {
       nested: { value: encoded },
       query: PRIVATE,

@@ -25,7 +25,9 @@ export const contentRoot = fileURLToPath(new URL('../', import.meta.url));
 export const sourcePages = () =>
   globSync(['index.md', 'introduction.md', 'courses/**/*.md'], {
     cwd: contentRoot,
-  }).sort(collator.compare);
+  })
+    .map((path) => path.replaceAll('\\', '/'))
+    .sort(collator.compare);
 
 export const homeFrontmatter = (language: Language) => {
   const t = translations[language].home;

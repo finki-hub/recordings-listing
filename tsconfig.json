@@ -4,6 +4,7 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
+    "erasableSyntaxOnly": true,
     "exactOptionalPropertyTypes": false,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
