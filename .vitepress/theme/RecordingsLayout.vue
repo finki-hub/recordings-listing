@@ -1,17 +1,26 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import DefaultTheme from 'vitepress/theme';
 import { useRouter } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+import { onMounted } from 'vue';
+
+import {
+  localizedPath,
+  readLanguagePreference,
+  saveLanguagePreference,
+} from '../i18n.ts';
 import LanguageSelect from './components/LanguageSelect.vue';
 import { useLanguage } from './composables/useLanguage';
-import { localizedPath, readLanguagePreference, saveLanguagePreference } from '../i18n.ts';
 
 const router = useRouter();
 const { language, t } = useLanguage();
 onMounted(() => {
   const preferred = readLanguagePreference();
-  if (language.value === 'mk' && preferred !== 'mk') {
-    void router.go(localizedPath(location.pathname, preferred) + location.search + location.hash);
+  if (preferred !== 'mk' && language.value === 'mk') {
+    void router.go(
+      localizedPath(location.pathname, preferred) +
+        location.search +
+        location.hash,
+    );
   } else if (language.value !== 'mk') {
     saveLanguagePreference(language.value);
   }
@@ -22,7 +31,11 @@ onMounted(() => {
   <DefaultTheme.Layout>
     <template #nav-bar-content-after><LanguageSelect /></template>
     <template #sidebar-nav-before>
-      <span id="localized-sidebar-label" class="visually-hidden">{{ t.theme.sidebarNavigation }}</span>
+      <span
+        id="localized-sidebar-label"
+        class="visually-hidden"
+        >{{ t.theme.sidebarNavigation }}</span
+      >
     </template>
   </DefaultTheme.Layout>
 </template>

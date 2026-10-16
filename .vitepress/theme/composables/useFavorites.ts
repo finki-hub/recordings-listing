@@ -1,43 +1,46 @@
-import { ref, computed } from 'vue'
-import { createFavoritesState } from '../favorites-state.js'
+import { computed, ref } from 'vue';
 
-function getStorage(): Storage | undefined {
+import { createFavoritesState } from '../favorites-state.ts';
+
+const getStorage = (): Storage | undefined => {
   try {
-    return typeof window === 'undefined' ? undefined : window.localStorage
+    return typeof window === 'undefined' ? undefined : localStorage;
   } catch {
-    return undefined
+    return undefined;
   }
-}
+};
 
 const state = createFavoritesState({
+  eventTarget: typeof window === 'undefined' ? undefined : globalThis,
   storage: getStorage(),
-  eventTarget: typeof window === 'undefined' ? undefined : window,
-})
-const favorites = ref(state.favorites)
-const unsubscribeState = state.subscribe((next: Set<string>) => { favorites.value = next })
+});
+const favorites = ref(state.favorites);
+const unsubscribeState = state.subscribe((next: Set<string>) => {
+  favorites.value = next;
+});
 
-export function useFavorites() {
-  const isFavorite = (link: string) => state.isFavorite(link)
-  const toggleFavorite = (link: string) => state.toggleFavorite(link)
-  const sortedItems = computed(() => (items: any[]) => {
-    return [...items].sort((a, b) => {
-      const aFav = isFavorite(a.link)
-      const bFav = isFavorite(b.link)
-      if (aFav && !bFav) return -1
-      if (!aFav && bFav) return 1
-      return 0
-    })
-  })
+const isFavorite = (link: string) => state.isFavorite(link);
+const toggleFavorite = (link: string) => {
+  state.toggleFavorite(link);
+};
+const sortFavorites = <Item extends { link: string }>(items: Item[]) =>
+  items.toSorted((a, b) => {
+    const aFav = isFavorite(a.link);
+    const bFav = isFavorite(b.link);
+    if (aFav && !bFav) return -1;
+    return !aFav && bFav ? 1 : 0;
+  });
+const sortedItems = computed(() => sortFavorites);
 
-  return {
-    favorites,
-    isFavorite,
-    toggleFavorite,
-    subscribe: state.subscribe,
-    dispose() {
-      unsubscribeState()
-      state.dispose()
-    },
-    sortedItems
-  }
-}
+export const useFavorites = () => ({
+  dispose: () => {
+    unsubscribeState();
+    state.dispose();
+  },
+  favorites,
+  isFavorite,
+  sortedItems,
+  subscribe: (subscriber: (snapshot: Set<string>) => void) =>
+    state.subscribe(subscriber),
+  toggleFavorite,
+});
