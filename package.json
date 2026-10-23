@@ -35,7 +35,7 @@
   "type": "module",
   "version": "0.0.0",
   "dependencies": {
-    "@lucide/vue": "^1.59.0",
+    "@lucide/vue": "^1.60.0",
     "@mdit-vue/shared": "^3.0.2",
     "posthog-js": "^1.438.12",
     "reka-ui": "^2.11.0",
