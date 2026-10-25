@@ -1,4 +1,11 @@
 {
+  "dependencies": {
+    "@lucide/vue": "^1.61.0",
+    "@mdit-vue/shared": "^3.0.2",
+    "posthog-js": "^1.438.21",
+    "reka-ui": "^2.11.0",
+    "vue": "^3.5.44"
+  },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
     "@types/markdown-it": "^14.2.0",
@@ -12,38 +19,31 @@
     "vitepress-sidebar": "^1.40.0",
     "vue-tsc": "^3.3.13"
   },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "license": "MIT",
+  "name": "finki-hub-recordings-listing",
   "overrides": {
     "vitepress-sidebar": {
       "qsu": "1.21.0"
     }
   },
-  "license": "MIT",
-  "name": "finki-hub-recordings-listing",
   "private": true,
-  "engines": {
-    "node": ">=24.0.0"
-  },
   "scripts": {
-    "test": "npm run check && node --test tests/*.test.ts",
-    "test:integration": "npm run check && playwright test",
     "build": "npm run check && vitepress build",
+    "check": "vue-tsc --noEmit",
     "docs:build": "npm run build",
     "docs:dev": "vitepress dev",
     "docs:preview": "vitepress preview",
+    "format": "eslint . --cache --fix",
+    "lint": "eslint . --cache",
+    "lint:all": "npm run lint && npm run lint:md",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist",
     "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --ignore .vitepress/dist --fix",
-    "check": "vue-tsc --noEmit",
-    "lint": "eslint . --cache",
-    "format": "eslint . --cache --fix",
-    "lint:all": "npm run lint && npm run lint:md"
+    "test": "npm run check && node --test tests/*.test.ts",
+    "test:integration": "npm run check && playwright test"
   },
   "type": "module",
-  "version": "0.0.0",
-  "dependencies": {
-    "@lucide/vue": "^1.61.0",
-    "@mdit-vue/shared": "^3.0.2",
-    "posthog-js": "^1.438.21",
-    "reka-ui": "^2.11.0",
-    "vue": "^3.5.44"
-  }
+  "version": "0.0.0"
 }
