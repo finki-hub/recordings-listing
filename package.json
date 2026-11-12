@@ -14,7 +14,7 @@
     "eslint-config-imperium": "^5.0.0",
     "markdownlint-cli": "^0.50.0",
     "typescript": "~6.0.3",
-    "vite": "^8.3.6",
+    "vite": "^8.3.7",
     "vitepress": "^2.0.0-alpha.21",
     "vitepress-sidebar": "^1.41.0",
     "vue-tsc": "^3.3.14"
