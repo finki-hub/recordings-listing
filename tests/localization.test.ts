@@ -1,4 +1,4 @@
-import type Token from 'markdown-it/lib/token.mjs';
+import type { Token } from 'markdown-it';
 
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -78,7 +78,11 @@ const links = (tokens: Token[]) => {
       ) {
         label.push(at(children, j).content);
       }
-      result.push({ href: child.attrGet('href'), label: label.join('') });
+      const href = child.attrGet('href');
+      result.push({
+        href: href === null ? null : String(href),
+        label: label.join(''),
+      });
     }
   }
   return result;

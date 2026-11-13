@@ -31,10 +31,10 @@ export const addFrontmatterKeywords = (md: MarkdownRenderer) => {
           continue;
         }
 
-        const title =
-          child
-            .attrGet('aria-label')
-            ?.replace(permalinkPattern, '$<capture1>') ?? '';
+        const title = String(child.attrGet('aria-label') ?? '').replace(
+          permalinkPattern,
+          '$<capture1>',
+        );
         child.attrSet(
           'aria-label',
           t.theme.permalink.replace('{title}', () => title),
