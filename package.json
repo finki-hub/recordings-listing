@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@lucide/vue": "^1.70.0",
+    "@lucide/vue": "^1.71.0",
     "@mdit-vue/shared": "^3.0.2",
     "posthog-js": "^1.447.9",
     "reka-ui": "^2.11.0",
