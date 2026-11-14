@@ -16,16 +16,17 @@ keywords:
 ### 2023/2024 {#предавања-2023-2024}
 
 1. [Вовед](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/c5a2e1e6e039a5bb4108ca80416b14d4f7a98dc0-1697625846543)
-2. [Типови на истражување](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/8082a07120f4c6bea25f189c8f0e4b53cf94c472-1698231177611)
-3. [Примена на научен метод](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/981ab06a9d69fac26b241c2d407a0b66c4e81bc7-1698233337939)
-4. [Вовед во експеримент](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/0c9d6658d16f5702f0b9ec01097a5564f3abcaa3-1698839412149)
-5. [Вовед во симулација](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/ff68082a7281875a3ebe8e24cacfd5fd37df3e2a-1698843096935)
-6. [Пишување научен труд](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/c72f0b8ea47ce99a74b1057b5fed8814036568a5-1699444625825)
-7. [Плагијаторство и референцирање](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/85f444befc3ca9d43e10d46319be3babf32d9936-1700049641196)
-8. [Организација на конференции](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/7873d04d0741aa9b98d2dc145d655c12883d4703-1701258879562)
-9. [Статистика и визуелизација](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/22804f70349278b9c0301c038ec10e2af2370fc4-1701863884306)
-10. [Отворена наука](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/9521c5d7f17496a10b07dc72e528b30c3bc2b344-1702468744276)
-11. [Интерактивни трудови](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/66ca22a77caeabf68c61229c60d652ed22814dc6-1703073645423)
+2. [Типови на истражување (18.10.2023)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/8082a07120f4c6bea25f189c8f0e4b53cf94c472-1697629813950)
+3. [Типови на истражување (25.10.2023)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/8082a07120f4c6bea25f189c8f0e4b53cf94c472-1698231177611)
+4. [Примена на научен метод](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/981ab06a9d69fac26b241c2d407a0b66c4e81bc7-1698233337939)
+5. [Вовед во експеримент](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/0c9d6658d16f5702f0b9ec01097a5564f3abcaa3-1698839412149)
+6. [Вовед во симулација](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/ff68082a7281875a3ebe8e24cacfd5fd37df3e2a-1698843096935)
+7. [Пишување научен труд](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/c72f0b8ea47ce99a74b1057b5fed8814036568a5-1699444625825)
+8. [Плагијаторство и референцирање](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/85f444befc3ca9d43e10d46319be3babf32d9936-1700049641196)
+9. [Организација на конференции](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/7873d04d0741aa9b98d2dc145d655c12883d4703-1701258879562)
+10. [Статистика и визуелизација](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/22804f70349278b9c0301c038ec10e2af2370fc4-1701863884306)
+11. [Отворена наука](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/9521c5d7f17496a10b07dc72e528b30c3bc2b344-1702468744276)
+12. [Интерактивни трудови](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/66ca22a77caeabf68c61229c60d652ed22814dc6-1703073645423)
 
 ## Аудиториски вежби
 

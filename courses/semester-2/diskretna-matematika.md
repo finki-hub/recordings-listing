@@ -120,21 +120,21 @@ keywords:
 10. [Релации I](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/8ae67dd3973b9b45eafb001ca9ee09ec94ec6870-1609175592228?meetingId=8ae67dd3973b9b45eafb001ca9ee09ec94ec6870-1609175592228)
 11. [Релации: дефиниција и својства (дел 1)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/c785d311d218b9018df4c366cb3926be5d65230d-1609180312434?meetingId=c785d311d218b9018df4c366cb3926be5d65230d-1609180312434)
 
+### 2019/2020 {#аудиториски-вежби-2019-2020}
+
+1. [Онлајн - Аудиториска вежба 6](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/f07796f02e81dfd8e3de2497a4d017c32aad0831-1586530784874)
+
 ## Предавања + Аудиториски вежби
 
 ### 2023 {#предавања-аудиториски-вежби-2023}
 
-1. [Снимка 1](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1601981317934?meetingId=20f32d2260cc2066269f491410ac4d753281c62d-1601981317934)
-2. [Снимка 2](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1602740704065?meetingId=20f32d2260cc2066269f491410ac4d753281c62d-1602740704065)
-3. [Снимка 3](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1603345694924?meetingId=20f32d2260cc2066269f491410ac4d753281c62d-1603345694924)
-4. [Снимка 4](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1603954271507?meetingId=20f32d2260cc2066269f491410ac4d753281c62d-1603954271507)
-5. [Снимка 5](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1701946119050)
-6. [Снимка 6](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1702451533339)
-7. [Снимка 7](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1702970715255)
-8. [Снимка 8](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1702972270832)
-9. [Снимка 9](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1703056836835)
-10. [Снимка 10](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1703062667863)
-11. [Снимка 11](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1703572627549)
+1. [Снимка 1](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1701946119050)
+2. [Снимка 2](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1702451533339)
+3. [Снимка 3](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1702970715255)
+4. [Снимка 4](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1702972270832)
+5. [Снимка 5](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1703056836835)
+6. [Снимка 6](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1703062667863)
+7. [Снимка 7](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/567ce58f5a73a5d2f119c3c50215ae04e812d327-1703572627549)
 
 ### Методија Јанчевски, 2020/2021/2022 {#предавања-аудиториски-вежби-мј-2021}
 
