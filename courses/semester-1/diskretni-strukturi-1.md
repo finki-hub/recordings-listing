@@ -25,22 +25,22 @@ keywords:
 
 ### проф. Тојтовска, 2020/2021 {#предавања-тојтовска-2020-2021}
 
-1. [Предавање 1](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1601981317934)
-2. [Предавање 2](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1602740704065)
-3. [Предавање 3](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1603345694924)
-4. [Предавање 4](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1603954271507)
-5. [Предавање 5](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1604559100113)
-6. [Предавање 6](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1604566008818)
-7. [Предавање 7](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1605163741070)
-8. [Предавање 8](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1605171976934)
-9. [Предавање 9](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1606729734209)
-10. [Предавање 10](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1606978156297)
-11. [Предавање 11](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1607582880639)
-12. [Предавање 12](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1607592288470)
-13. [Предавање 13](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1608187945054)
-14. [Предавање 14](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1608195164088)
-15. [Предавање 15](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1608792461830)
-16. [Предавање 16](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1609226057971)
+1. [Снимка 1](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1601981317934)
+2. [Снимка 2](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1602740704065)
+3. [Снимка 3](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1603345694924)
+4. [Снимка 4](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1603954271507)
+5. [Снимка 5](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1604559100113)
+6. [Снимка 6](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1604566008818)
+7. [Снимка 7](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1605163741070)
+8. [Снимка 8](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1605171976934)
+9. [Снимка 9](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1606729734209)
+10. [Снимка 10](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1606978156297)
+11. [Снимка 11](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1607582880639)
+12. [Снимка 12](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1607592288470)
+13. [Снимка 13](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1608187945054)
+14. [Снимка 14](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1608195164088)
+15. [Снимка 15](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1608792461830)
+16. [Снимка 16](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/20f32d2260cc2066269f491410ac4d753281c62d-1609226057971)
 
 ## Аудиториски вежби
 
