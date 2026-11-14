@@ -25,6 +25,8 @@ keywords:
 11. [One-way ANOVA](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/861d05d95d2ff3317952ac651d06310f6e75980d-1651131782952)
 12. [Storytelling in games](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/861d05d95d2ff3317952ac651d06310f6e75980d-1651737631289)
 13. [Platforms for game development](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/861d05d95d2ff3317952ac651d06310f6e75980d-1652337796690)
+14. [Виртуелна училница (19.05.2022)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/861d05d95d2ff3317952ac651d06310f6e75980d-1652942727217)
+15. [Виртуелна училница (26.05.2022)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/861d05d95d2ff3317952ac651d06310f6e75980d-1653548052394)
 
 ## Аудиториски вежби
 

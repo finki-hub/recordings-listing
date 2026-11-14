@@ -53,6 +53,20 @@ keywords:
 24. [П14-1](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/0aac9ab9f54172c8b0ca3e9a7620f37e1fd8da6e-1652766805589)
 25. [П14-2](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/0aac9ab9f54172c8b0ca3e9a7620f37e1fd8da6e-1652954341587)
 
+### проф. В. Бакева, проф. А. Поповска-Митровиќ, 2023/2024 {#предавања-бакева-поповска-2023-2024}
+
+1. [Предавање (18.04.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/d03a61eef40c0ee0f1369a8a2d50976c331ae5f6-1713422860369)
+2. [Час (22.04.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/1eac06705bd43d9d90e1229836de257c0fe7f82a-1713768892002)
+3. [Час (30.04.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/1eac06705bd43d9d90e1229836de257c0fe7f82a-1714460015535)
+4. [Час (02.05.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/1eac06705bd43d9d90e1229836de257c0fe7f82a-1714632527447)
+
+### проф. Методија Јанчески, 2023/2024 {#предавања-јанчески-2023-2024}
+
+1. [Предавање 11 (26.04.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/5a0efb68571279710bedc6f37338cb4a32e2bc3d-1714115627413)
+2. [Предавање 12 и АВ12 (30.04.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/b7e8c78b6b43561f40dfd96a27dd90b6be85a7aa-1714460625320)
+3. [Предавање 13 (30.04.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/c685c9196cb2eb8b76a4e045095e25aedfd3b233-1714471318692)
+4. [Предавање 14 и АВ14 - Линеарна регресија (07.05.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/1d64d90d8499b22bf8231a4f9e55969d8fd41741-1715093833602)
+
 ## Аудиториски вежби
 
 ### 2021 {#аудиториски-вежби-2021}
@@ -89,6 +103,12 @@ keywords:
 13. [АВ12](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/4ccf98748b10717e64596afc9ebb0ac0a7d3583d-1652162134843)
 14. [АВ13](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/4ccf98748b10717e64596afc9ebb0ac0a7d3583d-1652363151398)
 15. [АВ14](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/4ccf98748b10717e64596afc9ebb0ac0a7d3583d-1652957335343)
+
+### проф. Методија Јанчески, 2023/2024 {#аудиториски-вежби-јанчески-2023-2024}
+
+1. [АВ10 (26.04.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/86695eb94be84d8b8a02287992b14eea5f895302-1714114966934)
+2. [АВ11 (26.04.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/df4a856f4810f67c17c445d7fc3c1d78d6b91145-1714130009780)
+3. [АВ13 (07.05.2024)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/8ba5298fe60af047d2636f26b9fa16b78fb28fba-1715089821566)
 
 ## Дополнителна содржина
 
