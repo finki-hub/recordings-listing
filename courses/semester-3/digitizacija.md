@@ -4,7 +4,9 @@ keywords:
   - digitizacija
   - digitalizacija
   - digitization
+  - digitalization
   - дигитизација
+  - дигитализација
 ---
 
 # Дигитизација
