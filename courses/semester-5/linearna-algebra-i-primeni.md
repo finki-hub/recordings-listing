@@ -53,7 +53,7 @@ keywords:
 ## Дополнителна содржина
 
 - [Видеа слични со предавањата](https://www.youtube.com/playlist?list=PLNr8B4XHL5kGDHOrU4IeI6QNuZHur4F86)
-- [Решенија на задачите од книгата](http://www.aerostudents.com/courses/linear-algebra/linearAlgebraSolutionsComplete.pdf)
+- [Решенија на задачите од книгата](https://www.aerostudents.com/courses/linear-algebra/linearAlgebraSolutionsComplete.pdf)
 
 ## Белешки
 

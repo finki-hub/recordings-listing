@@ -40,7 +40,7 @@ keywords:
 
 ## Дополнителна содржина
 
-- [UML Quiz](http://elearning.uml.ac.at/)
+- [UML Quiz](https://elearning.uml.ac.at/)
 - [Пример практичен испит](https://drive.google.com/file/d/1dZk3FT4aUKMbgnPgbtGzY5jhQJrItd63/view)
 
 ## Белешки
