@@ -12,8 +12,8 @@ keywords:
 
 ### 2021 {#предавања-2021}
 
-1. [Предавање 1](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/2abc83056e46324f3ebf38e461337fa9be081b73-1633366079065?meetingId=2abc83056e46324f3ebf38e461337fa9be081b73-1633366079065&fbclid=IwAR1ex2D9O3njN_cJpH52qsq1nwCg3mShFOEFDfv6MRbTosKITVxM1LHVr5Y)
-2. [Предавање 2](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/84b4503ff76d9a0c1dd0547a02181efeb56b57d5-1634918968084?meetingId=84b4503ff76d9a0c1dd0547a02181efeb56b57d5-1634918968084&fbclid=IwAR2r38Ou7kALY877cyMg62EdLxXHf2Wl6Lzm7NTxfrYDhFNGe18lhZM0bZA)
+1. [Предавање 1](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/2abc83056e46324f3ebf38e461337fa9be081b73-1633366079065?meetingId=2abc83056e46324f3ebf38e461337fa9be081b73-1633366079065)
+2. [Предавање 2](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/84b4503ff76d9a0c1dd0547a02181efeb56b57d5-1634918968084?meetingId=84b4503ff76d9a0c1dd0547a02181efeb56b57d5-1634918968084)
 3. [Python & Pygame](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/b36c6e5e58bcad3b8d39d06f40376f1786dd7fb6-1635521849022?meetingId=b36c6e5e58bcad3b8d39d06f40376f1786dd7fb6-1635521849022)
 4. [Memory Game](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/eb3e4673c07c966979ad05be6ef8462ca7289815-1636128058550?meetingId=eb3e4673c07c966979ad05be6ef8462ca7289815-1636128058550)
 5. [Slide Puzzle](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/8b0946892fcef76910fe73bcf4f140bbd86e8a74-1636735223866?meetingId=8b0946892fcef76910fe73bcf4f140bbd86e8a74-1636735223866)

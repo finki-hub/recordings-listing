@@ -45,8 +45,8 @@ keywords:
 - [LibreOffice](https://www.libreoffice.org/download/download/)
 - [ImageMagick](https://imagemagick.org/script/download.php)
 - [Overleaf/LaTeX](https://www.overleaf.com/)
-- [Стара база - прв колоквиум](http://vovedvoinfo.blogspot.com/2018/01/prashanja-i-odgovori-1-kolokvium.html)
-- [Стара база - втор колоквиум](http://vovedvoinfo.blogspot.com/2018/01/prashanja-i-odgovori-2-kolokvium.html)
+- [Стара база - прв колоквиум](https://vovedvoinfo.blogspot.com/2018/01/prashanja-i-odgovori-1-kolokvium.html)
+- [Стара база - втор колоквиум](https://vovedvoinfo.blogspot.com/2018/01/prashanja-i-odgovori-2-kolokvium.html)
 
 ## Белешки
 

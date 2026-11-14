@@ -57,19 +57,19 @@ keywords:
 
 ### 2022 {#аудиториски-вежби-2022}
 
-1. [Аудиториска вежба 1: Структури во C](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1645622550823&sa=D&source=editors&ust=1676338854358202&usg=AOvVaw3TZTewAEZLltgJpo0-GUtb)
-2. [Аудиториска вежба 2: Структури во C++](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1646228786265&sa=D&source=editors&ust=1676338854359094&usg=AOvVaw2TsZRkfX7iVUjPF0Y77uBJ)
+1. [Аудиториска вежба 1: Структури во C](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1645622550823)
+2. [Аудиториска вежба 2: Структури во C++](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1646228786265)
 3. Аудиториска вежба 3: Класи
-4. [Аудиториска вежба 4: Композиција и copy-конструктор](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1647438467490&sa=D&source=editors&ust=1676338854361151&usg=AOvVaw2kvXWGBDooLelJAxSANu-7)
-5. [Аудиториска вежба 5: Динамичка алокација на меморија](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1648042101186&sa=D&source=editors&ust=1676338854361815&usg=AOvVaw2FzDjTajMd52qVBE7OB5bB)
-6. [Прв Колоквиум Вежби](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1648644753777&sa=D&source=editors&ust=1676338854362509&usg=AOvVaw0zRfJ_RxGVYHhZBNRi1FJ2)
-7. [Аудиториска вежба 7: Наследување](https://www.google.com/url?q=https://finkiukim-my.sharepoint.com/:f:/g/personal/stefan_andonov_finki_ukim_mk/Ejat5bAR52JBjq-8P5dwPfkBy2yC7aqRlRbd7gADI2SpZg?e%3DRd2WFj&sa=D&source=editors&ust=1676338854363170&usg=AOvVaw3-wwUcKzkK_BwRNoEyc_TA)
-8. [Аудиториска вежба 8: Полиморфизам](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1650458798901&sa=D&source=editors&ust=1676338854363945&usg=AOvVaw2c2YB81R1sFlgZx0sJ1t_B)
-9. [Аудиториска вежба 9: Повеќекратно наследување](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1651063530889&sa=D&source=editors&ust=1676338854364846&usg=AOvVaw2Es4NXmg95qA0wU8kfCnH7)
-10. [Аудиториска вежба 10](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1651668005815&sa=D&source=editors&ust=1676338854365855&usg=AOvVaw15y_2OwgGrlMspMfVS27Em)
-11. [Аудиториска вежба 11](https://www.google.com/url?q=https://finkiukim-my.sharepoint.com/:f:/g/personal/stefan_andonov_finki_ukim_mk/EkYliJgptYdOvvP-lCo0jXsBEkHHU9GiikuCsfCKGBP0dA?e%3DdJ8MwR&sa=D&source=editors&ust=1676338854366848&usg=AOvVaw3AslYcCkK0r7P3o6DTceT0)
+4. [Аудиториска вежба 4: Композиција и copy-конструктор](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1647438467490)
+5. [Аудиториска вежба 5: Динамичка алокација на меморија](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1648042101186)
+6. [Прв Колоквиум Вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1648644753777)
+7. [Аудиториска вежба 7: Наследување](https://finkiukim-my.sharepoint.com/:f:/g/personal/stefan_andonov_finki_ukim_mk/Ejat5bAR52JBjq-8P5dwPfkBy2yC7aqRlRbd7gADI2SpZg?e=Rd2WFj)
+8. [Аудиториска вежба 8: Полиморфизам](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1650458798901)
+9. [Аудиториска вежба 9: Повеќекратно наследување](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1651063530889)
+10. [Аудиториска вежба 10](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1651668005815)
+11. [Аудиториска вежба 11](https://finkiukim-my.sharepoint.com/:f:/g/personal/stefan_andonov_finki_ukim_mk/EkYliJgptYdOvvP-lCo0jXsBEkHHU9GiikuCsfCKGBP0dA?e=dJ8MwR)
 12. Аудиториска вежба 12
-13. [Втор колоквиум вежби](https://www.google.com/url?q=https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1652877940499&sa=D&source=editors&ust=1676338854367551&usg=AOvVaw3BY0oXgTtzca6Ug3jsVmgC)
+13. [Втор колоквиум вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/740dc1184c44f2d100ce97a5038744c4cd34f22a-1652877940499)
 
 ### 2021 {#аудиториски-вежби-2021}
 

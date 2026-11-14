@@ -158,13 +158,13 @@ keywords:
 3. [Методи на докажување (дел 3)](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/c0f2741c5df1822ef98cb1929335f69b3c25d997-1635875630513?meetingId=c0f2741c5df1822ef98cb1929335f69b3c25d997-1635875630513)
 4. [Множества](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/11c2cc05a1cb86c7905811f7eab5c0ec1576b474-1635920827201?meetingId=11c2cc05a1cb86c7905811f7eab5c0ec1576b474-1635920827201)
 5. [Предикати и квантификатори](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/ec87188af784d20dd11095649994268b452780b1-1634298753343?meetingId=ec87188af784d20dd11095649994268b452780b1-1634298753343)
-6. [Комбинаторика - предавање](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/203b7bad893ce29468bad3e31bb71656e7521092-1608312035337?meetingId=203b7bad893ce29468bad3e31bb71656e7521092-1608312035337&fbclid=IwAR3lECL3CHgBODE1Z1ssrfUAb9s6CHh64nwEIm1TRQc5YAV80dGOOaag9fw)
-7. [Комбинаторика - аудиториски вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/a825ef676fa0bddb3fcf2c9f6e9af57a5119f8fd-1608567625435?meetingId=a825ef676fa0bddb3fcf2c9f6e9af57a5119f8fd-1608567625435&fbclid=IwAR2TVrEfKEGmO62KcMPe6iqPVN5mdGjyS4tfF9DI5q0XbzbpNxWv7_1-__4)
-8. [Комбинаторика II - аудиториски вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/b3abf1808a470a097bec8e16a45fc556ac89d829-1608917001007?meetingId=b3abf1808a470a097bec8e16a45fc556ac89d829-1608917001007&fbclid=IwAR2TVrEfKEGmO62KcMPe6iqPVN5mdGjyS4tfF9DI5q0XbzbpNxWv7_1-__4)
-9. [Низи, суми, рекурентни релации - предавање](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/1d6816a97a7110aad1e7b7e336769ead7b7f3a39-1608907262120?meetingId=1d6816a97a7110aad1e7b7e336769ead7b7f3a39-1608907262120&fbclid=IwAR1_MCiVldmzPGPiqDpmDylxNKHYjDdQfruYR8bG9dGQn2-kP49mo2Ui938)
+6. [Комбинаторика - предавање](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/203b7bad893ce29468bad3e31bb71656e7521092-1608312035337?meetingId=203b7bad893ce29468bad3e31bb71656e7521092-1608312035337)
+7. [Комбинаторика - аудиториски вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/a825ef676fa0bddb3fcf2c9f6e9af57a5119f8fd-1608567625435?meetingId=a825ef676fa0bddb3fcf2c9f6e9af57a5119f8fd-1608567625435)
+8. [Комбинаторика II - аудиториски вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/b3abf1808a470a097bec8e16a45fc556ac89d829-1608917001007?meetingId=b3abf1808a470a097bec8e16a45fc556ac89d829-1608917001007)
+9. [Низи, суми, рекурентни релации - предавање](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/1d6816a97a7110aad1e7b7e336769ead7b7f3a39-1608907262120?meetingId=1d6816a97a7110aad1e7b7e336769ead7b7f3a39-1608907262120)
 10. [Рекурентни релации - аудиториски вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/1d30edd9ace544729a0e8d64fddd70580ac90731-1608796269849?meetingId=1d30edd9ace544729a0e8d64fddd70580ac90731-1608796269849)
-11. [Релации - предавање](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/f9963315a63ceb950734b610a4612b5067baec76-1609159049866?meetingId=f9963315a63ceb950734b610a4612b5067baec76-1609159049866&fbclid=IwAR0auG6JNwn_ve5ycpcfYOjbv8k-677tUry_iXPQ2uGH76oa-J2bm30E6pA)
-12. [Релации - аудиториски вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/8ae67dd3973b9b45eafb001ca9ee09ec94ec6870-1609175592228?meetingId=8ae67dd3973b9b45eafb001ca9ee09ec94ec6870-1609175592228&fbclid=IwAR1WQeAdfzjqQ9srkM37evuzqEeAyj5SS5lG426tO1y0fqKVBmGq6EZykqo)
+11. [Релации - предавање](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/f9963315a63ceb950734b610a4612b5067baec76-1609159049866?meetingId=f9963315a63ceb950734b610a4612b5067baec76-1609159049866)
+12. [Релации - аудиториски вежби](https://bbb-lb.finki.ukim.mk/playback/presentation/2.3/8ae67dd3973b9b45eafb001ca9ee09ec94ec6870-1609175592228?meetingId=8ae67dd3973b9b45eafb001ca9ee09ec94ec6870-1609175592228)
 
 ## Дополнителна содржина
 
