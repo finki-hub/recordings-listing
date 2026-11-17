@@ -7,7 +7,7 @@
     "vue": "^3.5.45"
   },
   "devDependencies": {
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "@types/markdown-it": "^14.2.0",
     "@types/node": "^26.6.6",
     "eslint": "^10.15.0",
